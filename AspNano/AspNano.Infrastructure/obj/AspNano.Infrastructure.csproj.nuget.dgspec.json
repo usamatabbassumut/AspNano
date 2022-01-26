@@ -4,12 +4,12 @@
     "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Infrastructure\\AspNano.Infrastructure.csproj": {}
   },
   "projects": {
-    "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Core.csproj": {
+    "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Core.csproj",
-        "projectName": "AspNano.Core",
-        "projectPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Core.csproj",
+        "projectUniqueName": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Entities.csproj",
+        "projectName": "AspNano.Entities",
+        "projectPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Entities.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
         "outputPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\obj\\",
         "projectStyle": "PackageReference",
@@ -88,8 +88,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Core.csproj": {
-                "projectPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Core.csproj"
+              "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Entities.csproj": {
+                "projectPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Entities.csproj"
               }
             }
           }

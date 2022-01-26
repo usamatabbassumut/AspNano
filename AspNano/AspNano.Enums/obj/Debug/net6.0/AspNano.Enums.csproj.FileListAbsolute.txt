@@ -1,0 +1,12 @@
+E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\bin\Debug\net6.0\AspNano.Enums.deps.json
+E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\bin\Debug\net6.0\AspNano.Enums.dll
+E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\bin\Debug\net6.0\ref\AspNano.Enums.dll
+E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\bin\Debug\net6.0\AspNano.Enums.pdb
+E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.GeneratedMSBuildEditorConfig.editorconfig
+E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.AssemblyInfoInputs.cache
+E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.AssemblyInfo.cs
+E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.csproj.CoreCompileInputs.cache
+E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.dll
+E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\obj\Debug\net6.0\ref\AspNano.Enums.dll
+E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.pdb
+E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.csproj.AssemblyReference.cache

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oVAgB0ci+k0LNq+/JPJRc1zMiG81O9jZz7hv5+ZKOtVDE2gFinNV+ud36JWeOprtbZybxaYwoGLSoTXjqNmDvA==",
+  "dgSpecHash": "Q/BBrPYf6jBa1RirXBlhYYeKBdxvUQSW627SrFGDz873xh9FgiNEJCIi9UHc/VZkZJ1iUnkGNQ3bt4FHBPOgww==",
   "success": true,
-  "projectFilePath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Core.csproj",
+  "projectFilePath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Entities.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.1\\microsoft.entityframeworkcore.6.0.1.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.1\\microsoft.entityframeworkcore.abstractions.6.0.1.nupkg.sha512",

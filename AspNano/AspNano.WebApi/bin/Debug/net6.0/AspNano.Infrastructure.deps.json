@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "AspNano.Infrastructure/1.0.0": {
         "dependencies": {
-          "AspNano.Core": "1.0.0",
+          "AspNano.Entities": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.1",
           "Microsoft.EntityFrameworkCore": "6.0.1",
           "Microsoft.EntityFrameworkCore.Design": "6.0.1",
@@ -556,12 +556,12 @@
           }
         }
       },
-      "AspNano.Core/1.0.0": {
+      "AspNano.Entities/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "6.0.1"
         },
         "runtime": {
-          "AspNano.Core.dll": {}
+          "AspNano.Entities.dll": {}
         }
       }
     }
@@ -915,7 +915,7 @@
       "path": "system.windows.extensions/4.7.0",
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
     },
-    "AspNano.Core/1.0.0": {
+    "AspNano.Entities/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

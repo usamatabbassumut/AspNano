@@ -1,4 +1,7 @@
-﻿using AspNano.Infrastructure;
+﻿using AspNano.Application.Services.TenantService;
+using AspNano.DTOs.TenantDTOs;
+using AspNano.Enums;
+using AspNano.Infrastructure;
 using AspNano.WebApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,13 +23,14 @@ namespace AspNano.WebApi.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
-
+        private readonly ITenantService _tenantService;
 
         public ValuesController(ApplicationDbContext dbContext,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             RoleManager<IdentityRole> roleManager,
-            IConfiguration configuration
+            IConfiguration configuration,
+            ITenantService tenantService
             )
         {
             _dbContext=dbContext;
@@ -34,12 +38,11 @@ namespace AspNano.WebApi.Controllers
             _signInManager=signInManager;
             _roleManager=roleManager;
             _configuration=configuration;
-
+            _tenantService=tenantService;
         }
 
 
         [HttpGet("GetNames")]
-
         [AllowAnonymous]
         public ActionResult GetNames() {
             List<string> MyList = new List<string>() { "tayyab","shahid"};
@@ -48,7 +51,8 @@ namespace AspNano.WebApi.Controllers
         }
 
 
-        [Authorize(Roles = "SuperAdmin")]
+        //[Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "root")]
         [HttpGet("GetNewNames")]
         public ActionResult GetNewNames()
         {
@@ -227,7 +231,6 @@ namespace AspNano.WebApi.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Login")]
-
         public async Task<IActionResult> Login([FromBody] MyLoginModelType model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
@@ -260,10 +263,9 @@ namespace AspNano.WebApi.Controllers
                 });
             }
             return Unauthorized();
-
         }
 
+       
 
-      
     }
 }

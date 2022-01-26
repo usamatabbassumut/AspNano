@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AspNano.Core\AspNano.Core.csproj" />
+    <ProjectReference Include="..\AspNano.Core\AspNano.Entities.csproj" />
   </ItemGroup>
 
 </Project>

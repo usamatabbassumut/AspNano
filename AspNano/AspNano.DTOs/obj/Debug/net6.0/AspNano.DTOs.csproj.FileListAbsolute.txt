@@ -1,0 +1,12 @@
+E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\bin\Debug\net6.0\AspNano.DTOs.deps.json
+E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\bin\Debug\net6.0\AspNano.DTOs.dll
+E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\bin\Debug\net6.0\ref\AspNano.DTOs.dll
+E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\bin\Debug\net6.0\AspNano.DTOs.pdb
+E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.csproj.AssemblyReference.cache
+E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.GeneratedMSBuildEditorConfig.editorconfig
+E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.AssemblyInfoInputs.cache
+E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.AssemblyInfo.cs
+E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.csproj.CoreCompileInputs.cache
+E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.dll
+E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\obj\Debug\net6.0\ref\AspNano.DTOs.dll
+E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.pdb

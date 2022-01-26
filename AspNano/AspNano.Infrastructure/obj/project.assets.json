@@ -707,17 +707,17 @@
           }
         }
       },
-      "AspNano.Core/1.0.0": {
+      "AspNano.Entities/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "6.0.1"
         },
         "compile": {
-          "bin/placeholder/AspNano.Core.dll": {}
+          "bin/placeholder/AspNano.Entities.dll": {}
         },
         "runtime": {
-          "bin/placeholder/AspNano.Core.dll": {}
+          "bin/placeholder/AspNano.Entities.dll": {}
         }
       }
     }
@@ -2049,15 +2049,15 @@
         "version.txt"
       ]
     },
-    "AspNano.Core/1.0.0": {
+    "AspNano.Entities/1.0.0": {
       "type": "project",
-      "path": "../AspNano.Core/AspNano.Core.csproj",
-      "msbuildProject": "../AspNano.Core/AspNano.Core.csproj"
+      "path": "../AspNano.Core/AspNano.Entities.csproj",
+      "msbuildProject": "../AspNano.Core/AspNano.Entities.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "AspNano.Core >= 1.0.0",
+      "AspNano.Entities >= 1.0.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.1",
       "Microsoft.EntityFrameworkCore >= 6.0.1",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.1",
@@ -2093,8 +2093,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Core.csproj": {
-              "projectPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Core.csproj"
+            "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Entities.csproj": {
+              "projectPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Entities.csproj"
             }
           }
         }

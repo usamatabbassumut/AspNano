@@ -14,7 +14,6 @@ E:\Usama\Tayyab\Nano\AspNano\AspNano.Core\bin\Debug\net6.0\Microsoft.Extensions.
 E:\Usama\Tayyab\Nano\AspNano\AspNano.Core\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
 E:\Usama\Tayyab\Nano\AspNano\AspNano.Core\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
 E:\Usama\Tayyab\Nano\AspNano\AspNano.Core\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
-E:\Usama\Tayyab\Nano\AspNano\AspNano.Core\obj\Debug\net6.0\AspNano.Core.csproj.AssemblyReference.cache
 E:\Usama\Tayyab\Nano\AspNano\AspNano.Core\obj\Debug\net6.0\AspNano.Core.GeneratedMSBuildEditorConfig.editorconfig
 E:\Usama\Tayyab\Nano\AspNano\AspNano.Core\obj\Debug\net6.0\AspNano.Core.AssemblyInfoInputs.cache
 E:\Usama\Tayyab\Nano\AspNano\AspNano.Core\obj\Debug\net6.0\AspNano.Core.AssemblyInfo.cs
@@ -24,3 +23,4 @@ E:\Usama\Tayyab\Nano\AspNano\AspNano.Core\obj\Debug\net6.0\AspNano.Core.dll
 E:\Usama\Tayyab\Nano\AspNano\AspNano.Core\obj\Debug\net6.0\ref\AspNano.Core.dll
 E:\Usama\Tayyab\Nano\AspNano\AspNano.Core\obj\Debug\net6.0\AspNano.Core.pdb
 E:\Usama\Tayyab\Nano\AspNano\AspNano.Core\obj\Debug\net6.0\AspNano.Core.genruntimeconfig.cache
+E:\Usama\Tayyab\Nano\AspNano\AspNano.Core\obj\Debug\net6.0\AspNano.Core.csproj.AssemblyReference.cache

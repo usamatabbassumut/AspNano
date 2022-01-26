@@ -529,9 +529,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Core.csproj",
-      "projectName": "AspNano.Core",
-      "projectPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Core.csproj",
+      "projectUniqueName": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Entities.csproj",
+      "projectName": "AspNano.Entities",
+      "projectPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Entities.csproj",
       "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
       "outputPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\obj\\",
       "projectStyle": "PackageReference",

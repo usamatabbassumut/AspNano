@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AspNano.Application\AspNano.Application.csproj" />
+    <ProjectReference Include="..\AspNano.Enums\AspNano.Enums.csproj" />
     <ProjectReference Include="..\AspNano.Infrastructure\AspNano.Infrastructure.csproj" />
   </ItemGroup>
 
