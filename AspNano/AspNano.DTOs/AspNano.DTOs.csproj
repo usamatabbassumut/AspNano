@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AspNano.Enums\AspNano.Enums.csproj" />
+  </ItemGroup>
+
 </Project>

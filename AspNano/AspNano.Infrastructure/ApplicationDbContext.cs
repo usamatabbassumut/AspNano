@@ -1,4 +1,5 @@
 ﻿using AspNano.Core.Entities;
+using AspNano.Entities.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -85,7 +86,8 @@ namespace AspNano.Infrastructure
         }
 
 
-        public DbSet<Tenant> Tenant { get; set; }
+        public DbSet<TenantEntity> Tenant { get; set; }
+        public DbSet<VenueEntity> Venue { get; set; }
 
 
     }

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AspNano.Application.Repository.TenantRepository
 {
-    public class TenantRepository : Repository<Tenant>, ITenantRepository
+    public class TenantRepository : Repository<TenantEntity>, ITenantRepository
     {
         private readonly IHttpContextAccessor httpContextAccessor;
 
@@ -20,12 +20,12 @@ namespace AspNano.Application.Repository.TenantRepository
         {
             httpContextAccessor = _httpContextAccessor;
         }
-       public IQueryable<Tenant> GetAllTenants()
+       public IQueryable<TenantEntity> GetAllTenants()
         {
             return GetAll();
         }
 
-        public IEnumerable<Tenant> GetTenantById(Guid tenantID)
+        public IEnumerable<TenantEntity> GetTenantById(Guid tenantID)
         {
             return GetWithCondition(x => x.Id == tenantID).ToList();
         }
@@ -41,7 +41,7 @@ namespace AspNano.Application.Repository.TenantRepository
             if (isPresent) throw new Exception("Tenant already exists.");
             //Saving the Tenant
             var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            Tenant tenant =new Tenant();
+            TenantEntity tenant =new TenantEntity();
             tenant.Id = Guid.NewGuid();
             tenant.Key = modal.Key;
             tenant.CreatedBy = Guid.Parse(userId);

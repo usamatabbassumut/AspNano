@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace AspNano.Application.Repository.TenantRepository
 {
-    public interface ITenantRepository : IRepository<Tenant>
+    public interface ITenantRepository : IRepository<TenantEntity>
     {
-        IQueryable<Tenant> GetAllTenants();
+        IQueryable<TenantEntity> GetAllTenants();
         bool CheckExisting(string key);
 
         Task<bool> SaveUpdateTenant(TenantDTO modal);

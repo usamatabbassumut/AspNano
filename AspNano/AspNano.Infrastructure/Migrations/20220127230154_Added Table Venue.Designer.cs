@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AspNano.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220126214230_Initial")]
-    partial class Initial
+    [Migration("20220127230154_Added Table Venue")]
+    partial class AddedTableVenue
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace AspNano.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("AspNano.Core.Entities.Tenant", b =>
+            modelBuilder.Entity("AspNano.Core.Entities.TenantEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,6 +55,51 @@ namespace AspNano.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tenant");
+                });
+
+            modelBuilder.Entity("AspNano.Entities.Entities.VenueEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("LastModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("VenueDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VenueName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VenueType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("Venue");
                 });
 
             modelBuilder.Entity("AspNano.Infrastructure.ApplicationUser", b =>
@@ -126,16 +171,16 @@ namespace AspNano.Infrastructure.Migrations
                         {
                             Id = "297af0a9-060d-4ac7-b014-e421588150a0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f43ecb72-8129-465b-b23d-0431587ef2f2",
+                            ConcurrencyStamp = "0e336954-dab7-4f17-9e96-482328f8281c",
                             Email = "aspnano2022@info.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "aspnano2022@info.com",
                             NormalizedUserName = "OWNER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHpoLLnuFC59Whpg80WEPlSTcGARV84JmDh3n8G232MXsUxmlyUwnfOz1Ci0Ep/xiA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKscrFiRjwZJj2XHQG+JAuA2enHsLhwkwH6RmgVaUzM5qUqQ8XgWtvvwoFhWn6JTbQ==",
                             PhoneNumber = "+111111111111",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "39a1ba50-3688-49f6-abf7-2b4335b73d39",
+                            SecurityStamp = "ce61a2e9-e418-49fe-8dd1-4a383f1cb180",
                             TwoFactorEnabled = false,
                             UserName = "aspnano"
                         });
@@ -309,6 +354,17 @@ namespace AspNano.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("AspNano.Entities.Entities.VenueEntity", b =>
+                {
+                    b.HasOne("AspNano.Core.Entities.TenantEntity", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tenant");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

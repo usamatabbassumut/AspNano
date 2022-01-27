@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AspNano.Infrastructure.Migrations
 {
-    public partial class Initial : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,24 +46,6 @@ namespace AspNano.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tenant",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Key = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tenant", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -186,7 +168,7 @@ namespace AspNano.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "297af0a9-060d-4ac7-b014-e421588150a0", 0, "f43ecb72-8129-465b-b23d-0431587ef2f2", "aspnano2022@info.com", true, false, null, "aspnano2022@info.com", "OWNER", "AQAAAAEAACcQAAAAEHpoLLnuFC59Whpg80WEPlSTcGARV84JmDh3n8G232MXsUxmlyUwnfOz1Ci0Ep/xiA==", "+111111111111", true, "39a1ba50-3688-49f6-abf7-2b4335b73d39", false, "aspnano" });
+                values: new object[] { "297af0a9-060d-4ac7-b014-e421588150a0", 0, "10bbdeaf-430b-495d-ad1a-69eda0b99ddc", "aspnano2022@info.com", true, false, null, "aspnano2022@info.com", "OWNER", "AQAAAAEAACcQAAAAEEzhljls2N7+n3gyrJZ1RFzjK0r93qE54+Gts9UqvfeVzNu+3rFoG65vW5/bKVcFRQ==", "+111111111111", true, "e797140c-037b-489a-8d63-f263d63547b1", false, "aspnano" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -249,9 +231,6 @@ namespace AspNano.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "Tenant");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

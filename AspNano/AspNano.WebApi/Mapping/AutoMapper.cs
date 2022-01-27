@@ -13,7 +13,7 @@ namespace AspNano.WebApi.Mapping
             //    /* CreateMap<company, companydtp>();*/ // means you want to map from company to companydto
             //    //use for update
             //    //CreateMap<company, company>();
-            CreateMap<TenantDTO, Tenant>().ReverseMap();
+            CreateMap<TenantDTO, TenantEntity>().ReverseMap();
         }
     }
 }

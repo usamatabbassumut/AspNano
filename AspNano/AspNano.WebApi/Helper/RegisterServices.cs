@@ -1,6 +1,8 @@
 ﻿using AspNano.Application.EFRepository;
 using AspNano.Application.Repository.TenantRepository;
+using AspNano.Application.Repository.VenueRepository;
 using AspNano.Application.Services.TenantService;
+using AspNano.Application.Services.VenueService;
 using AspNano.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -106,11 +108,13 @@ namespace AspNano.WebApi.Helper
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddScoped<ITenantService, TenantService>();
+            services.AddScoped<IVenueService, VenueService>();
             #endregion
 
             #region [-- REGISTERING REPOSITORIES --]
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
             services.AddScoped<ITenantRepository,TenantRepository>();
+            services.AddScoped<IVenueRepository, VenueRepository>();
             #endregion
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
