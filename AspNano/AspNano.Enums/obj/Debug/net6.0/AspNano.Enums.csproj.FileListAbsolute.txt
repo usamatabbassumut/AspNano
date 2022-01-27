@@ -10,3 +10,15 @@ E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.dll
 E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\obj\Debug\net6.0\ref\AspNano.Enums.dll
 E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.pdb
 E:\Usama\Tayyab\Nano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.csproj.AssemblyReference.cache
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.Enums\bin\Debug\net6.0\AspNano.Enums.deps.json
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.Enums\bin\Debug\net6.0\AspNano.Enums.dll
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.Enums\bin\Debug\net6.0\ref\AspNano.Enums.dll
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.Enums\bin\Debug\net6.0\AspNano.Enums.pdb
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.csproj.AssemblyReference.cache
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.AssemblyInfoInputs.cache
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.AssemblyInfo.cs
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.csproj.CoreCompileInputs.cache
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.dll
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.Enums\obj\Debug\net6.0\ref\AspNano.Enums.dll
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.Enums\obj\Debug\net6.0\AspNano.Enums.pdb

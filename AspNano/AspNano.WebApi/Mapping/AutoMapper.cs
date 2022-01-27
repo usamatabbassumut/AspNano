@@ -1,5 +1,6 @@
 ﻿using AspNano.Application.ViewModels;
 using AspNano.Core.Entities;
+using AspNano.DTOs.TenantDTOs;
 using AutoMapper;
 
 namespace AspNano.WebApi.Mapping
@@ -12,7 +13,7 @@ namespace AspNano.WebApi.Mapping
             //    /* CreateMap<company, companydtp>();*/ // means you want to map from company to companydto
             //    //use for update
             //    //CreateMap<company, company>();
-            CreateMap<CompanyVM, Tenant>().ReverseMap();
+            CreateMap<TenantDTO, Tenant>().ReverseMap();
         }
     }
 }

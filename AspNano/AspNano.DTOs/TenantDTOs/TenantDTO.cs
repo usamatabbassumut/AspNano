@@ -9,6 +9,6 @@ namespace AspNano.DTOs.TenantDTOs
     public class TenantDTO
     {
         public string Key { get; set; }
-        public Guid TenantID { get; set; }
+        //public Guid TenantID { get; set; }
     }
 }

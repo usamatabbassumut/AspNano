@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,10 +40,11 @@ namespace AspNano.Application.Repository.TenantRepository
             bool isPresent=CheckExisting(modal.Key);
             if (isPresent) throw new Exception("Tenant already exists.");
             //Saving the Tenant
-            string userName= httpContextAccessor.HttpContext.User.Identity.Name;
+            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             Tenant tenant =new Tenant();
             tenant.Id = Guid.NewGuid();
             tenant.Key = modal.Key;
+            tenant.CreatedBy = Guid.Parse(userId);
             try
             {
                 await Add(tenant);

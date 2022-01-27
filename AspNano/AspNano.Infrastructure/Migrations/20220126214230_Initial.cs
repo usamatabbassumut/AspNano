@@ -186,7 +186,7 @@ namespace AspNano.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "297af0a9-060d-4ac7-b014-e421588150a0", 0, "8ce4972b-16a2-44d3-8c0a-88da232607a0", "aspnano2022@info.com", true, false, null, "aspnano2022@info.com", "OWNER", "AQAAAAEAACcQAAAAEDWyRFPbXD0+P0iv0Y/wvWH3rskA8a7+jb3x2Tin3EWBddlC9r+MD0mwlZFmfV7/5w==", "+111111111111", true, "7e36babc-9c85-4198-a04b-afc47ebd8495", false, "aspnano" });
+                values: new object[] { "297af0a9-060d-4ac7-b014-e421588150a0", 0, "f43ecb72-8129-465b-b23d-0431587ef2f2", "aspnano2022@info.com", true, false, null, "aspnano2022@info.com", "OWNER", "AQAAAAEAACcQAAAAEHpoLLnuFC59Whpg80WEPlSTcGARV84JmDh3n8G232MXsUxmlyUwnfOz1Ci0Ep/xiA==", "+111111111111", true, "39a1ba50-3688-49f6-abf7-2b4335b73d39", false, "aspnano" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

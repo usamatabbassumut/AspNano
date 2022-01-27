@@ -124,16 +124,16 @@ namespace AspNano.Infrastructure.Migrations
                         {
                             Id = "297af0a9-060d-4ac7-b014-e421588150a0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8ce4972b-16a2-44d3-8c0a-88da232607a0",
+                            ConcurrencyStamp = "f43ecb72-8129-465b-b23d-0431587ef2f2",
                             Email = "aspnano2022@info.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "aspnano2022@info.com",
                             NormalizedUserName = "OWNER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDWyRFPbXD0+P0iv0Y/wvWH3rskA8a7+jb3x2Tin3EWBddlC9r+MD0mwlZFmfV7/5w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHpoLLnuFC59Whpg80WEPlSTcGARV84JmDh3n8G232MXsUxmlyUwnfOz1Ci0Ep/xiA==",
                             PhoneNumber = "+111111111111",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "7e36babc-9c85-4198-a04b-afc47ebd8495",
+                            SecurityStamp = "39a1ba50-3688-49f6-abf7-2b4335b73d39",
                             TwoFactorEnabled = false,
                             UserName = "aspnano"
                         });

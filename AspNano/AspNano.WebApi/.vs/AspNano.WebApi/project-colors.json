@@ -25,7 +25,17 @@
       "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
       "DisplayName": "Miscellaneous Files",
       "ColorIndex": -1
+    },
+    "7c2ef178-6e5a-4128-b5b4-56d3ba599d60": {
+      "ProjectGuid": "7c2ef178-6e5a-4128-b5b4-56d3ba599d60",
+      "DisplayName": "AspNano.Enums",
+      "ColorIndex": 4
+    },
+    "6454d885-830f-447f-b222-31dd82385bc9": {
+      "ProjectGuid": "6454d885-830f-447f-b222-31dd82385bc9",
+      "DisplayName": "AspNano.DTOs",
+      "ColorIndex": 5
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 6
 }

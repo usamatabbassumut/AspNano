@@ -10,3 +10,15 @@ E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.csproj.C
 E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.dll
 E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\obj\Debug\net6.0\ref\AspNano.DTOs.dll
 E:\Usama\Tayyab\Nano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.pdb
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.DTOs\bin\Debug\net6.0\AspNano.DTOs.deps.json
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.DTOs\bin\Debug\net6.0\AspNano.DTOs.dll
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.DTOs\bin\Debug\net6.0\ref\AspNano.DTOs.dll
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.DTOs\bin\Debug\net6.0\AspNano.DTOs.pdb
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.csproj.AssemblyReference.cache
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.AssemblyInfoInputs.cache
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.AssemblyInfo.cs
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.csproj.CoreCompileInputs.cache
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.dll
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.DTOs\obj\Debug\net6.0\ref\AspNano.DTOs.dll
+C:\Users\tayya\OneDrive\Desktop\merged\AspNano\AspNano\AspNano.DTOs\obj\Debug\net6.0\AspNano.DTOs.pdb

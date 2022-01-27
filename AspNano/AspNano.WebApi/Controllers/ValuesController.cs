@@ -239,6 +239,7 @@ namespace AspNano.WebApi.Controllers
                 var userRoles = await _userManager.GetRolesAsync(user);
                 var authClaims=new List<Claim> { 
                 new Claim(ClaimTypes.Name,user.Email),
+                new Claim(ClaimTypes.NameIdentifier,user.Id),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
                 };
                 foreach (var userRole in userRoles)
@@ -259,7 +260,8 @@ namespace AspNano.WebApi.Controllers
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo,
-                    User = user.Email
+                    User = user.Email,
+                    Id=user.Id,
                 });
             }
             return Unauthorized();

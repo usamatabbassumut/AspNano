@@ -28,7 +28,6 @@ namespace AspNano.Application.Services.TenantService
             return _tenantRepository.GetAllTenants().Select(x=>new TenantDTO
             {
                 Key = x.Key,
-                TenantID=x.Id
             }).ToList();
         }
 

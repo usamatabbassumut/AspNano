@@ -112,6 +112,8 @@ namespace AspNano.WebApi.Helper
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
             services.AddScoped<ITenantRepository,TenantRepository>();
             #endregion
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
     }
 }

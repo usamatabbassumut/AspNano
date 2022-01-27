@@ -27,8 +27,8 @@ namespace AspNano.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("SaveUpdateTenant")]
-        public async Task<IActionResult> SaveUpdateTenant(TenantDTO modal)
+        [Route("SaveTenant")]
+        public async Task<IActionResult> SaveTenant(TenantDTO modal)
         {
             try
             {

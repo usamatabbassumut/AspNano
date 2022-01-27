@@ -2211,19 +2211,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\DELL\\.nuget\\packages\\": {}
+    "C:\\Users\\tayya\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Application\\AspNano.Application.csproj",
+      "projectUniqueName": "C:\\Users\\tayya\\OneDrive\\Desktop\\merged\\AspNano\\AspNano\\AspNano.Application\\AspNano.Application.csproj",
       "projectName": "AspNano.Application",
-      "projectPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Application\\AspNano.Application.csproj",
-      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Application\\obj\\",
+      "projectPath": "C:\\Users\\tayya\\OneDrive\\Desktop\\merged\\AspNano\\AspNano\\AspNano.Application\\AspNano.Application.csproj",
+      "packagesPath": "C:\\Users\\tayya\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\tayya\\OneDrive\\Desktop\\merged\\AspNano\\AspNano\\AspNano.Application\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tayya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2237,14 +2242,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Entities.csproj": {
-              "projectPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Core\\AspNano.Entities.csproj"
+            "C:\\Users\\tayya\\OneDrive\\Desktop\\merged\\AspNano\\AspNano\\AspNano.Core\\AspNano.Entities.csproj": {
+              "projectPath": "C:\\Users\\tayya\\OneDrive\\Desktop\\merged\\AspNano\\AspNano\\AspNano.Core\\AspNano.Entities.csproj"
             },
-            "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.DTOs\\AspNano.DTOs.csproj": {
-              "projectPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.DTOs\\AspNano.DTOs.csproj"
+            "C:\\Users\\tayya\\OneDrive\\Desktop\\merged\\AspNano\\AspNano\\AspNano.DTOs\\AspNano.DTOs.csproj": {
+              "projectPath": "C:\\Users\\tayya\\OneDrive\\Desktop\\merged\\AspNano\\AspNano\\AspNano.DTOs\\AspNano.DTOs.csproj"
             },
-            "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Infrastructure\\AspNano.Infrastructure.csproj": {
-              "projectPath": "E:\\Usama\\Tayyab\\Nano\\AspNano\\AspNano.Infrastructure\\AspNano.Infrastructure.csproj"
+            "C:\\Users\\tayya\\OneDrive\\Desktop\\merged\\AspNano\\AspNano\\AspNano.Infrastructure\\AspNano.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\tayya\\OneDrive\\Desktop\\merged\\AspNano\\AspNano\\AspNano.Infrastructure\\AspNano.Infrastructure.csproj"
             }
           }
         }
