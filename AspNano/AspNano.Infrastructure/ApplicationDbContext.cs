@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,9 @@ namespace AspNano.Infrastructure
 
     public class ApplicationUser : IdentityUser
     {
+        [ForeignKey("Tenant")]
+        public Guid TenantId { get; set; }
+        public virtual TenantEntity Tenant { get; set; }
     }
 
     public class ApplicationRoles : IdentityRole
@@ -38,9 +42,22 @@ namespace AspNano.Infrastructure
             builder.Entity<ApplicationUser>().HasKey(m => m.Id);
             builder.Entity<IdentityRole>().HasKey(m => m.Id);
             base.OnModelCreating(builder);
+            this.SeedTenants(builder);
             this.SeedUsers(builder);
             this.SeedRoles(builder);
             this.SeedUserRoles(builder);
+        }
+
+        private void SeedTenants(ModelBuilder builder)
+        {
+                builder.Entity<TenantEntity>().HasData(
+           new TenantEntity
+           {
+               Id = Guid.Parse("297af0a9-060d-4ac7-b014-e421588150a0"),
+               Key = "root",
+              CreatedBy = Guid.Parse("29faf0a9-060d-4ac7-b014-e421588150a0"),
+           }
+       );
         }
 
         private void SeedUsers(ModelBuilder builder)
@@ -49,7 +66,6 @@ namespace AspNano.Infrastructure
             var user = new ApplicationUser
             {
                 Id = "297af0a9-060d-4ac7-b014-e421588150a0",
-
                 Email = "aspnano2022@info.com",
                 NormalizedEmail = "aspnano2022@info.com",
                 UserName = "aspnano",
@@ -57,7 +73,9 @@ namespace AspNano.Infrastructure
                 PhoneNumber = "+111111111111",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
-                SecurityStamp = Guid.NewGuid().ToString("D")
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                TenantId= Guid.Parse("297af0a9-060d-4ac7-b014-e421588150a0"),
+
             };
 
 

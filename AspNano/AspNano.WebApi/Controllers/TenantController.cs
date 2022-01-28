@@ -22,7 +22,7 @@ namespace AspNano.WebApi.Controllers
         [Route("GetTenants")]
         public async Task<List<TenantDTO>> GetAllTenants()
         {
-            var list = _tenantService.GetAllTenants();
+            var list =  _tenantService.GetAllTenants();
             return list;
         }
 
@@ -40,5 +40,8 @@ namespace AspNano.WebApi.Controllers
                 return this.StatusCode((int)StatusCodeEnum.Conflict, ex.Message);
             }
         }
+
+
+
     }
 }

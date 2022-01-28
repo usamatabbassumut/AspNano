@@ -26,15 +26,16 @@ namespace AspNano.Application.Repository.VenueRepository
             return GetWithCondition(x => x.VenueName.ToLower() == venueName.ToLower()).Any();
         }
 
-        public async Task<bool> SaveUpdateVenue(VenueDTO modal)
+        public async Task<bool> SaveVenue(CreateVenueDTO modal)
         {
             var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var tenantId = httpContextAccessor.HttpContext.User.FindFirst("tenantId").Value;
             bool isVenueExists =CheckExisting(modal.VenueName);
             if (isVenueExists) throw new Exception("Venue already exists.");
             //Mapping the values
             VenueEntity venue = new VenueEntity();
             venue.Id = Guid.NewGuid();
-            venue.TenantId = modal.TenantId;
+            venue.TenantId = Guid.Parse(tenantId);
             venue.VenueName = modal.VenueName;
             venue.VenueType = modal.VenueType;
             venue.VenueDescription = modal.VenueDescription;
@@ -49,5 +50,37 @@ namespace AspNano.Application.Repository.VenueRepository
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<bool> UpdateVenue(UpdateVenueDTO modal)
+        {
+            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var tenantId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid).Value;
+
+            //Mapping the values
+            VenueEntity venue = new VenueEntity();
+            venue.Id = modal.Id;
+            venue.TenantId = Guid.Parse(tenantId);
+            venue.VenueName = modal.VenueName;
+            venue.VenueType = modal.VenueType;
+            venue.VenueDescription = modal.VenueDescription;
+            venue.LastModifiedBy = Guid.Parse(userId);
+            try
+            {
+                await Change(venue);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public  IQueryable<VenueEntity> GetAllVenues()
+        {
+          return GetAll();
+        }
+
+
+
     }
 }

@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace AspNano.DTOs.VenueDTOs
 {
-    public class VenueDTO
+    public class CreateVenueDTO
     {
-        //Venue ID
-        public Guid Id { get; set; }
         public string VenueName { get; set; }
         public string VenueDescription { get; set; }
         public VenueTypeEnum VenueType { get; set; }
