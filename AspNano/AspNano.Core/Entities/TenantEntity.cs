@@ -13,5 +13,7 @@ namespace AspNano.Core.Entities
     {
         public string Key { get; set; }
 
+        //Is Active bool
+
     }
 }

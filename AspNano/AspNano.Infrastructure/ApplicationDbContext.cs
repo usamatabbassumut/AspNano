@@ -14,11 +14,19 @@ namespace AspNano.Infrastructure
 {
 
 
+    //move seed and application user model to their own classes/locations
+
     public class ApplicationUser : IdentityUser
     {
         [ForeignKey("Tenant")]
-        public Guid TenantId { get; set; }
-        public virtual TenantEntity Tenant { get; set; }
+        public Guid TenantId { get; set; } //use the tenant key (string) instead of the GUID for simplicity in all tenant isolation columns
+        public virtual TenantEntity Tenant { get; set; } //FK not necessary for tenants
+
+        //-- Create these fields for user
+
+        //public string FirstName { get; set; }  
+        //public string LastName { get; set; }
+        //public bool IsActive { get; set; }
     }
 
     public class ApplicationRoles : IdentityRole
@@ -52,10 +60,10 @@ namespace AspNano.Infrastructure
         {
                 builder.Entity<TenantEntity>().HasData(
            new TenantEntity
-           {
+           {        
                Id = Guid.Parse("297af0a9-060d-4ac7-b014-e421588150a0"),
                Key = "root",
-              CreatedBy = Guid.Parse("29faf0a9-060d-4ac7-b014-e421588150a0"),
+               CreatedBy = Guid.Parse("29faf0a9-060d-4ac7-b014-e421588150a0"),
            }
        );
         }
@@ -88,6 +96,8 @@ namespace AspNano.Infrastructure
 
         private void SeedRoles(ModelBuilder builder)
         {
+            //Isnt there a way to isolate the root tenant by their key? I would rather not create a root Role per each tenant
+            //Also the IDs for roles do not need to inherit the base entity (and use GUIDs), could use a simple integer in this case
             builder.Entity<IdentityRole>().HasData(
                 new IdentityRole() { Id = "b761c12f-4f47-4722-9974-8bf705e4626b", Name = "root", ConcurrencyStamp = "1", NormalizedName = "root" },
                 new IdentityRole() { Id = "6fef51e2-e448-442a-90bb-0953200acd95", Name = "admin", ConcurrencyStamp = "2", NormalizedName = "admin" },

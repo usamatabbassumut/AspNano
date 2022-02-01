@@ -12,9 +12,9 @@ namespace AspNano.Entities.Entities
     [Table("Venue")]
     public class VenueEntity: AuditableEntity
     {
-        public string VenueName { get; set; }
-        public string VenueDescription { get; set; }
-        public VenueTypeEnum VenueType { get; set; }
+        public string VenueName { get; set; } //change to Name
+        public string VenueDescription { get; set; } //change to Description (leave off the entity names by convention please)
+        public VenueTypeEnum VenueType { get; set; } //same here
         [ForeignKey("Tenant")] 
         public Guid TenantId { get; set; }
         public virtual TenantEntity Tenant { get; set; }

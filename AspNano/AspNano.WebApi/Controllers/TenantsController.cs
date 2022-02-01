@@ -9,26 +9,32 @@ namespace AspNano.WebApi.Controllers
     [Authorize(Roles = "root")]
     [Route("api/[controller]")]
     [ApiController]
-    public class TenantController : ControllerBase
+    public class TenantsController : ControllerBase
     {
         private readonly ITenantService _tenantService;
 
-        public TenantController(ITenantService tenantService)
+        public TenantsController(ITenantService tenantService)
         {
             _tenantService = tenantService;
         }
 
+
+
+
         [HttpGet]
-        [Route("GetTenants")]
+        //GET
+        //api/tenants
         public async Task<List<TenantDTO>> GetAllTenants()
         {
             var list =  _tenantService.GetAllTenants();
             return list;
         }
 
+
         [HttpPost]
-        [Route("SaveTenant")]
-        public async Task<IActionResult> SaveTenant(TenantDTO modal)
+        //POST
+        //api/tenants
+        public async Task<IActionResult> SaveTenant(CreateTenantRequest modal)
         {
             try
             {
@@ -41,6 +47,9 @@ namespace AspNano.WebApi.Controllers
             }
         }
 
+
+       
+        
 
 
     }

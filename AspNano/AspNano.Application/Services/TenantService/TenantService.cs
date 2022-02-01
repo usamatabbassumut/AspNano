@@ -27,11 +27,12 @@ namespace AspNano.Application.Services.TenantService
         {
             return _tenantRepository.GetAllTenants().Select(x=>new TenantDTO
             {
+                Id = x.Id.ToString(),
                 Key = x.Key,
             }).ToList();
         }
 
-        public async Task<bool> SaveUpdateTenant(TenantDTO modal)
+        public async Task<bool> SaveUpdateTenant(CreateTenantRequest modal)
         {
             return await _tenantRepository.SaveUpdateTenant(modal);
         }

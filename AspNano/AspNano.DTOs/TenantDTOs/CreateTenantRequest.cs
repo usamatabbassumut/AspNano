@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace AspNano.DTOs.TenantDTOs
 {
-    public class TenantDTO
+    public class CreateTenantRequest
     {
-        public string Id { get; set; }
         public string Key { get; set; }
+        public string AdminEmail { get; set; }
+        public string Password { get; set; }
+
     }
 }

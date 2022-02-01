@@ -9,9 +9,11 @@ namespace AspNano.Application.Services.VenueService
 {
     public interface IVenueService
     {
-        Task<bool> SaveVenue(CreateVenueDTO modal);
-        Task<bool> UpdateVenue(UpdateVenueDTO modal);
+        Task<bool> SaveVenueAsync(CreateVenueRequest modal);
+        Task<bool> UpdateVenueAsync(UpdateVenueRequest modal, Guid id);
+        Task<bool> DeleteVenueAsync(Guid Id);
 
-       List<UpdateVenueDTO>  GetAllVenues();
+       List<VenueDTO> GetAllVenuesAsync();
+
     }
 }

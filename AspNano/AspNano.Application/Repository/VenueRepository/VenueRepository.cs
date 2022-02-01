@@ -26,7 +26,7 @@ namespace AspNano.Application.Repository.VenueRepository
             return GetWithCondition(x => x.VenueName.ToLower() == venueName.ToLower()).Any();
         }
 
-        public async Task<bool> SaveVenue(CreateVenueDTO modal)
+        public async Task<bool> SaveVenueAsync(CreateVenueRequest modal)
         {
             var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var tenantId = httpContextAccessor.HttpContext.User.FindFirst("tenantId").Value;
@@ -51,14 +51,33 @@ namespace AspNano.Application.Repository.VenueRepository
             }
         }
 
-        public async Task<bool> UpdateVenue(UpdateVenueDTO modal)
+        public async Task<bool> UpdateVenueAsync(UpdateVenueRequest modal, Guid id)
         {
             var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var tenantId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid).Value;
+            var tenantId = httpContextAccessor.HttpContext.User.FindFirst("tenantId").Value;
+
+
+
+            //This is how its done with FSH which I like
+            //look up ID, see if exists
+            //do the update 
+            //return the GUID if successful
+
+
+            //var brand = await _repository.GetByIdAsync<Brand>(id);
+            //if (brand == null) throw new EntityNotFoundException(string.Format(_localizer["brand.notfound"], id)); //dont care about localization
+
+            //await _repository.UpdateAsync<Brand>(updatedBrand);
+            //await _repository.SaveChangesAsync();
+            //return await Result<Guid>.SuccessAsync(id);
+
+
+
 
             //Mapping the values
             VenueEntity venue = new VenueEntity();
-            venue.Id = modal.Id;
+            venue.Id = id; //should check if exists
+
             venue.TenantId = Guid.Parse(tenantId);
             venue.VenueName = modal.VenueName;
             venue.VenueType = modal.VenueType;
@@ -80,7 +99,18 @@ namespace AspNano.Application.Repository.VenueRepository
           return GetAll();
         }
 
+        public async Task<bool> DeleteVenueAsync(Guid Id)
+        {
+            try
+            {
+               await Delete(Id);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
-
+        }
     }
 }

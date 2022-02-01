@@ -13,6 +13,6 @@ namespace AspNano.Application.Services.TenantService
         List<TenantDTO> GetAllTenants();
         bool CheckExisting(string key);
 
-        Task<bool> SaveUpdateTenant(TenantDTO modal);
+        Task<bool> SaveUpdateTenant(CreateTenantRequest modal);
     }
 }

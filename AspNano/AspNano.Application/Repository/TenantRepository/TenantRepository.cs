@@ -41,7 +41,10 @@ namespace AspNano.Application.Repository.TenantRepository
             return GetWithCondition(x => x.Key.ToLower()==key.ToLower()).Any();
         }
 
-        public async Task<bool> SaveUpdateTenant(TenantDTO modal)
+        //This would be better to have Create and Update as seperate methods I think 
+        //For tenant however, its not so important -- the only updating would be to a Boolean field we need to add (Active) - this would be used to activate and deactivate tenant accounts
+        //we would never delete a tenant in the real world
+        public async Task<bool> SaveUpdateTenant(CreateTenantRequest modal)
         {
             bool isPresent=CheckExisting(modal.Key);
             if (isPresent) throw new Exception("Tenant already exists.");
@@ -60,7 +63,7 @@ namespace AspNano.Application.Repository.TenantRepository
                 await Add(tenant);
                 var tenantId = tenant.Id;
 
-                var userExist = await _userManager.FindByEmailAsync(modal.Email);
+                var userExist = await _userManager.FindByEmailAsync(modal.AdminEmail);
                 if (userExist != null)
                 {
                     return false;
@@ -68,8 +71,8 @@ namespace AspNano.Application.Repository.TenantRepository
 
                 var user = new ApplicationUser
                 {
-                    UserName = modal.Email,
-                    Email = modal.Email,
+                    UserName = modal.AdminEmail,
+                    Email = modal.AdminEmail,
                     EmailConfirmed = false,
                     TenantId = tenantId
                 };

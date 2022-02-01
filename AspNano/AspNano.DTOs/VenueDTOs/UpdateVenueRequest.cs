@@ -7,11 +7,20 @@ using System.Threading.Tasks;
 
 namespace AspNano.DTOs.VenueDTOs
 {
-    public class CreateVenueDTO
+    public class UpdateVenueRequest
     {
+
         public string VenueName { get; set; }
         public string VenueDescription { get; set; }
         public VenueTypeEnum VenueType { get; set; }
-        public Guid TenantId { get; set; }
+   
     }
 }
+
+//EXAMPLE SUCCESS WRAPPER Response
+
+//{
+//    "data": "e0270000-7a28-e4b9-4984-08d9bb36ff09",
+//    "messages": [],
+//    "succeeded": true
+//}

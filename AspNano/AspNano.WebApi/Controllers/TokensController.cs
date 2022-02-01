@@ -1,4 +1,5 @@
 ﻿using AspNano.Application.Services.TenantService;
+using AspNano.DTOs.AuthDTOs;
 using AspNano.DTOs.TenantDTOs;
 using AspNano.Enums;
 using AspNano.Infrastructure;
@@ -12,11 +13,16 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
+
+//Rename this to Tokens controller
+
+//It should only have two endpoints, get token and refresh token
+//registration to be done in Identity Controller (by admins only, no open registration)
 namespace AspNano.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class TokensController : ControllerBase
     {
         private ApplicationDbContext _dbContext;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -25,7 +31,7 @@ namespace AspNano.WebApi.Controllers
         private readonly IConfiguration _configuration;
         private readonly ITenantService _tenantService;
 
-        public AuthController(ApplicationDbContext dbContext,
+        public TokensController(ApplicationDbContext dbContext,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             RoleManager<IdentityRole> roleManager,
@@ -44,11 +50,13 @@ namespace AspNano.WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("Login")]
-        public async Task<IActionResult> Login([FromBody] MyLoginModelType model)
+        //api/tokens
+        public async Task<IActionResult> Login([FromBody] TokenRequest request)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+            //check tenant here
+            //tenant key must be in header 
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if (user != null && await _userManager.CheckPasswordAsync(user, request.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
                 var authClaims = new List<Claim> {
@@ -159,59 +167,60 @@ namespace AspNano.WebApi.Controllers
         //}
 
 
-        [AllowAnonymous]
-        [HttpPost("registeradmin")]
-        public async Task<ActionResult> RegisterAdmin([FromBody] MyLoginModelType myLoginModel)
-        {
+        ////Register move to Identity Controller
+        //[AllowAnonymous]
+        //[HttpPost("registeradmin")]
+        //public async Task<ActionResult> RegisterAdmin([FromBody] MyLoginModelType myLoginModel) //create DTOs for each request type -- in this case RegisterDTO
+        //{
 
-            var userExist = await _userManager.FindByEmailAsync(myLoginModel.Email);
-            if (userExist != null)
-            {
-                return Ok(new { Result = "Admin Already Exist" });
-            }
+        //    var userExist = await _userManager.FindByEmailAsync(myLoginModel.Email);
+        //    if (userExist != null)
+        //    {
+        //        return Ok(new { Result = "Admin Already Exist" });
+        //    }
 
-            else
-            {
-                var user = new ApplicationUser
-                {
-                    UserName = myLoginModel.Email,
-                    Email = myLoginModel.Email,
-                    EmailConfirmed = false
-                };
+        //    else
+        //    {
+        //        var user = new ApplicationUser
+        //        {
+        //            UserName = myLoginModel.Email,
+        //            Email = myLoginModel.Email,
+        //            EmailConfirmed = false
+        //        };
 
-                var result = await _userManager.CreateAsync(user, myLoginModel.Password);
-                if (result.Succeeded)
-                {
-
-
-                    if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
-                        await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+        //        var result = await _userManager.CreateAsync(user, myLoginModel.Password);
+        //        if (result.Succeeded)
+        //        {
 
 
-                    if (!await _roleManager.RoleExistsAsync(UserRoles.User))
-                        await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
-
-                    if (!await _roleManager.RoleExistsAsync(UserRoles.SuperAdmin))
-                        await _roleManager.CreateAsync(new IdentityRole(UserRoles.SuperAdmin));
-
-                    await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+        //            if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
+        //                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
 
 
-                    return Ok(new { Result = "User Created Successfully" });
-                }
-                else
-                {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    foreach (var error in result.Errors)
-                    {
-                        stringBuilder.Append(error.Description);
-                    }
-                    return Ok(new { Result = $"Refister Fail:{stringBuilder.ToString()}" });
-                }
-            }
+        //            if (!await _roleManager.RoleExistsAsync(UserRoles.User))
+        //                await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+
+        //            if (!await _roleManager.RoleExistsAsync(UserRoles.SuperAdmin))
+        //                await _roleManager.CreateAsync(new IdentityRole(UserRoles.SuperAdmin));
+
+        //            await _userManager.AddToRoleAsync(user, UserRoles.Admin);
 
 
-        }
+        //            return Ok(new { Result = "User Created Successfully" });
+        //        }
+        //        else
+        //        {
+        //            StringBuilder stringBuilder = new StringBuilder();
+        //            foreach (var error in result.Errors)
+        //            {
+        //                stringBuilder.Append(error.Description);
+        //            }
+        //            return Ok(new { Result = $"Refister Fail:{stringBuilder.ToString()}" });
+        //        }
+        //    }
+
+
+        //}
 
 
 

@@ -25,27 +25,39 @@ namespace AspNano.Application.Services.VenueService
         }
 
 
-        public async Task<bool> SaveVenue(CreateVenueDTO modal)
+        public async Task<bool> SaveVenueAsync(CreateVenueRequest modal)
         {
-            return await _venueRepository.SaveVenue(modal);
+            return await _venueRepository.SaveVenueAsync(modal);
         }
 
-        public async Task<bool> UpdateVenue(UpdateVenueDTO modal)
+        public async Task<bool> UpdateVenueAsync(UpdateVenueRequest modal, Guid id)
         {
-            return await _venueRepository.UpdateVenue(modal);
+            return await _venueRepository.UpdateVenueAsync(modal, id);
 
         }
 
-
-        public  List<UpdateVenueDTO> GetAllVenues()
+        //implement automapper
+        //async?
+        public List<VenueDTO> GetAllVenuesAsync()
         {
-            var tenantId = httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x=>x.Type=="tenantId").Value;
-            return  _venueRepository.GetAllVenues().Include(x=>x.Tenant).Where(x=>x.TenantId==Guid.Parse(tenantId)).Select(x => new UpdateVenueDTO
+            var tenantId = httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x=>x.Type=="tenantId").Value; //move to middleware
+            return  _venueRepository.GetAllVenues().Include(x=>x.Tenant).Where(x=>x.TenantId==Guid.Parse(tenantId)).Select(x => new VenueDTO
             {
-                VenueName = x.VenueName,
+                Id = x.Id,
+                VenueName = x.VenueName, 
                 VenueDescription = x.VenueDescription,
-                TenantId = x.TenantId,
+                VenueType = x.VenueType.ToString(), //?? enums 
+                //want to return VenueTypeId also (integer for the client)
+
             }).ToList();
+        }
+
+        public async Task<bool> DeleteVenueAsync(Guid Id)
+        {
+
+            //check tenant obviously
+             return await _venueRepository.DeleteVenueAsync(Id);
         }
     }
 }
+
