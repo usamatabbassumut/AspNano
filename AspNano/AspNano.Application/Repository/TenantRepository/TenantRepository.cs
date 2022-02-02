@@ -1,5 +1,6 @@
 ﻿using AspNano.Application.EFRepository;
 using AspNano.Core.Entities;
+using AspNano.DTOs.ResponseDTOs;
 using AspNano.DTOs.TenantDTOs;
 using AspNano.Infrastructure;
 using Microsoft.AspNetCore.Http;
@@ -91,6 +92,22 @@ namespace AspNano.Application.Repository.TenantRepository
             {
                 throw new Exception(ex.Message);
             }
+        }
+        public async Task<ResponseDTO> RemoveTenant(Guid Id)
+        {
+            var singleTenant = await Get(Id);
+            if (singleTenant != null)
+            {
+                singleTenant.IsDeleted = true;
+                singleTenant.DeletedOn = DateTime.UtcNow;
+                var userId = httpContextAccessor.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                singleTenant.DeletedBy = !string.IsNullOrEmpty(userId) ? Guid.Parse(userId) : new Guid();
+                //Updating
+                await Change(singleTenant);
+                
+                return new ResponseDTO() { IsSuccessful = true, Response = "Deleted Successfully", StatusCode = 1 };
+            }
+             return new ResponseDTO() { IsSuccessful = false, Response = "Deleted Failed", StatusCode = 0 };
         }
     }
 }

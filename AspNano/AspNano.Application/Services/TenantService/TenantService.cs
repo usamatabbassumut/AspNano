@@ -1,5 +1,6 @@
 ﻿using AspNano.Application.Repository.TenantRepository;
 using AspNano.Core.Entities;
+using AspNano.DTOs.ResponseDTOs;
 using AspNano.DTOs.TenantDTOs;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,10 @@ namespace AspNano.Application.Services.TenantService
         public async Task<bool> SaveUpdateTenant(CreateTenantRequest modal)
         {
             return await _tenantRepository.SaveUpdateTenant(modal);
+        }
+        public async Task<ResponseDTO> RemoveTenant(Guid Id)
+        {
+            return await _tenantRepository.RemoveTenant(Id);
         }
     }
 }

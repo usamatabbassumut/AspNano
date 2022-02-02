@@ -1,4 +1,5 @@
 ﻿using AspNano.Application.Services.TenantService;
+using AspNano.DTOs.ResponseDTOs;
 using AspNano.DTOs.TenantDTOs;
 using AspNano.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -47,10 +48,10 @@ namespace AspNano.WebApi.Controllers
             }
         }
 
-
-       
-        
-
-
+        [HttpDelete]
+        public async Task<ResponseDTO> DeleteTenant(Guid tenantId)
+        {
+            return await _tenantService.RemoveTenant(tenantId);
+        }
     }
 }

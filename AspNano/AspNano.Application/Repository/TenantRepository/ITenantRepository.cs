@@ -1,5 +1,6 @@
 ﻿using AspNano.Application.EFRepository;
 using AspNano.Core.Entities;
+using AspNano.DTOs.ResponseDTOs;
 using AspNano.DTOs.TenantDTOs;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,7 @@ namespace AspNano.Application.Repository.TenantRepository
         bool CheckExisting(string key);
 
         Task<bool> SaveUpdateTenant(CreateTenantRequest modal);
+        Task<ResponseDTO> RemoveTenant(Guid Id);
+
     }
 }
