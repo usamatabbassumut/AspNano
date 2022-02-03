@@ -19,9 +19,6 @@ namespace AspNano.WebApi.Controllers
             _tenantService = tenantService;
         }
 
-
-
-
         [HttpGet]
         //GET
         //api/tenants

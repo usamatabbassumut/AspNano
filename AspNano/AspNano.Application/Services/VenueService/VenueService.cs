@@ -1,4 +1,6 @@
 ﻿using AspNano.Application.Repository.VenueRepository;
+using AspNano.Common.ApplicationExtensions;
+using AspNano.Common.HelperClasses;
 using AspNano.DTOs.VenueDTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -14,14 +16,12 @@ namespace AspNano.Application.Services.VenueService
 {
     public class VenueService : IVenueService
     {
-        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IVenueRepository _venueRepository;
 
 
-        public VenueService(IVenueRepository venueRepository, IHttpContextAccessor _httpContextAccessor)
+        public VenueService(IVenueRepository venueRepository)
         {
             _venueRepository = venueRepository;
-            httpContextAccessor = _httpContextAccessor;
         }
 
 
@@ -30,7 +30,7 @@ namespace AspNano.Application.Services.VenueService
             return await _venueRepository.SaveVenueAsync(modal);
         }
 
-        public async Task<bool> UpdateVenueAsync(UpdateVenueRequest modal, Guid id)
+        public async Task<Guid> UpdateVenueAsync(UpdateVenueRequest modal, Guid id)
         {
             return await _venueRepository.UpdateVenueAsync(modal, id);
 
@@ -40,22 +40,20 @@ namespace AspNano.Application.Services.VenueService
         //async?
         public List<VenueDTO> GetAllVenuesAsync()
         {
-            var tenantId = httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x=>x.Type=="tenantId").Value; //move to middleware
-            return  _venueRepository.GetAllVenues().Include(x=>x.Tenant).Where(x=>x.TenantId==Guid.Parse(tenantId)).Select(x => new VenueDTO
+            return  _venueRepository.GetAllVenues().Where(x => x.TenantId == Guid.Parse(TenantUserInfo.TenantID)).Include(x=>x.Tenant).Select(x => new VenueDTO
             {
                 Id = x.Id,
                 VenueName = x.VenueName, 
                 VenueDescription = x.VenueDescription,
-                VenueType = x.VenueType.ToString(), //?? enums 
-                //want to return VenueTypeId also (integer for the client)
+                VenueType = NanoExtension.GetEnumDescription(x.VenueType), 
+                VenueTypeId = (int)x.VenueType
 
             }).ToList();
         }
 
         public async Task<bool> DeleteVenueAsync(Guid Id)
         {
-
-            //check tenant obviously
+             //check tenant obviously
              return await _venueRepository.DeleteVenueAsync(Id);
         }
     }

@@ -13,7 +13,7 @@ namespace AspNano.Application.Repository.VenueRepository
     {
         bool CheckExisting(string key);
         Task<bool> SaveVenueAsync(CreateVenueRequest modal);
-        Task<bool> UpdateVenueAsync(UpdateVenueRequest modal, Guid id);
+        Task<Guid> UpdateVenueAsync(UpdateVenueRequest modal, Guid id);
         Task<bool> DeleteVenueAsync(Guid Id);
         IQueryable<VenueEntity> GetAllVenues();
 

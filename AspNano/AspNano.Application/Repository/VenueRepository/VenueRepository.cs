@@ -1,4 +1,5 @@
 ﻿using AspNano.Application.EFRepository;
+using AspNano.Common.HelperClasses;
 using AspNano.DTOs.VenueDTOs;
 using AspNano.Entities.Entities;
 using AspNano.Infrastructure;
@@ -28,18 +29,16 @@ namespace AspNano.Application.Repository.VenueRepository
 
         public async Task<bool> SaveVenueAsync(CreateVenueRequest modal)
         {
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var tenantId = httpContextAccessor.HttpContext.User.FindFirst("tenantId").Value;
             bool isVenueExists =CheckExisting(modal.VenueName);
             if (isVenueExists) throw new Exception("Venue already exists.");
             //Mapping the values
             VenueEntity venue = new VenueEntity();
             venue.Id = Guid.NewGuid();
-            venue.TenantId = Guid.Parse(tenantId);
+            venue.TenantId = Guid.Parse(TenantUserInfo.TenantID); //Getting tenant id from common helper class
             venue.VenueName = modal.VenueName;
             venue.VenueType = modal.VenueType;
             venue.VenueDescription = modal.VenueDescription;
-            venue.CreatedBy = Guid.Parse(userId);
+            venue.CreatedBy = Guid.Parse(TenantUserInfo.UserID);
             try
             {
                 await Add(venue);
@@ -51,7 +50,7 @@ namespace AspNano.Application.Repository.VenueRepository
             }
         }
 
-        public async Task<bool> UpdateVenueAsync(UpdateVenueRequest modal, Guid id)
+        public async Task<Guid> UpdateVenueAsync(UpdateVenueRequest modal, Guid id)
         {
             var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var tenantId = httpContextAccessor.HttpContext.User.FindFirst("tenantId").Value;
@@ -71,8 +70,11 @@ namespace AspNano.Application.Repository.VenueRepository
             //await _repository.SaveChangesAsync();
             //return await Result<Guid>.SuccessAsync(id);
 
+            bool isPresent = false;
+            isPresent= GetWithCondition(x=>x.Id==id).Any();
 
-
+            if (isPresent == false)
+                throw new Exception("Venue not found");
 
             //Mapping the values
             VenueEntity venue = new VenueEntity();
@@ -86,7 +88,7 @@ namespace AspNano.Application.Repository.VenueRepository
             try
             {
                 await Change(venue);
-                return true;
+                return venue.Id;
             }
             catch (Exception ex)
             {

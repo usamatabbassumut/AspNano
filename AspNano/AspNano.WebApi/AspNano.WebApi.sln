@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNano.Infrastructure", ".
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNano.Entities", "..\AspNano.Core\AspNano.Entities.csproj", "{8323A828-0F03-4AB3-9D2E-5EF1FC210AC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNano.Enums", "..\AspNano.Enums\AspNano.Enums.csproj", "{7C2EF178-6E5A-4128-B5B4-56D3BA599D60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNano.Enums", "..\AspNano.Enums\AspNano.Enums.csproj", "{7C2EF178-6E5A-4128-B5B4-56D3BA599D60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNano.DTOs", "..\AspNano.DTOs\AspNano.DTOs.csproj", "{6454D885-830F-447F-B222-31DD82385BC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNano.DTOs", "..\AspNano.DTOs\AspNano.DTOs.csproj", "{6454D885-830F-447F-B222-31DD82385BC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNano.Common", "..\AspNano.Common\AspNano.Common.csproj", "{8F22F178-E350-4FC7-95DA-075A3FF6F51B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{6454D885-830F-447F-B222-31DD82385BC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6454D885-830F-447F-B222-31DD82385BC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6454D885-830F-447F-B222-31DD82385BC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F22F178-E350-4FC7-95DA-075A3FF6F51B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F22F178-E350-4FC7-95DA-075A3FF6F51B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F22F178-E350-4FC7-95DA-075A3FF6F51B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F22F178-E350-4FC7-95DA-075A3FF6F51B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

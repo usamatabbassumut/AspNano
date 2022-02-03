@@ -1,4 +1,5 @@
 ﻿using AspNano.Application.EFRepository;
+using AspNano.Common.HelperClasses;
 using AspNano.Core.Entities;
 using AspNano.DTOs.ResponseDTOs;
 using AspNano.DTOs.TenantDTOs;
@@ -51,14 +52,10 @@ namespace AspNano.Application.Repository.TenantRepository
             if (isPresent) throw new Exception("Tenant already exists.");
 
             //Saving the Tenant
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-           
-
-
             TenantEntity tenant =new TenantEntity();
             tenant.Id = Guid.NewGuid();
             tenant.Key = modal.Key;
-            tenant.CreatedBy = Guid.Parse(userId);
+            tenant.CreatedBy = Guid.Parse(TenantUserInfo.UserID);
             try
             {
                 await Add(tenant);
@@ -85,9 +82,6 @@ namespace AspNano.Application.Repository.TenantRepository
                 }
                 return true;
             }
-
-
-
             catch(Exception ex)
             {
                 throw new Exception(ex.Message);

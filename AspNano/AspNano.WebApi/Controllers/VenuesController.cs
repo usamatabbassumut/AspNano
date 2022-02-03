@@ -51,8 +51,8 @@ namespace AspNano.WebApi.Controllers
         {
             try
             {
-                bool result = await _venueService.UpdateVenueAsync(request, id);
-                return this.StatusCode((int)StatusCodeEnum.Ok, result); //return GUID when success
+                var result = await _venueService.UpdateVenueAsync(request, id);
+                return this.StatusCode((int)StatusCodeEnum.Ok, result);
             }
             catch (Exception ex)
             {

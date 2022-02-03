@@ -13,6 +13,7 @@ namespace AspNano.DTOs.VenueDTOs
         public string VenueName { get; set; }
         public string VenueDescription { get; set; }
         public string VenueType { get; set; } //?? how do you handle ENUMS? not sure
+        public int VenueTypeId { get; set; } //?? how do you handle ENUMS? not sure
     }
 }
 
