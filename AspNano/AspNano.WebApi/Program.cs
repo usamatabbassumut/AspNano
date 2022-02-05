@@ -1,12 +1,5 @@
-using AspNano.Infrastructure;
 using AspNano.WebApi.Helper;
 using AspNano.WebApi.Middlewares;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 

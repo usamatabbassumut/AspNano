@@ -25,7 +25,7 @@ namespace AspNano.Application.Services.VenueService
         }
 
 
-        public async Task<bool> SaveVenueAsync(CreateVenueRequest modal)
+        public async Task<Guid> SaveVenueAsync(CreateVenueRequest modal)
         {
             return await _venueRepository.SaveVenueAsync(modal);
         }

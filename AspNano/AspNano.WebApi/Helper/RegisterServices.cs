@@ -4,6 +4,7 @@ using AspNano.Application.Repository.VenueRepository;
 using AspNano.Application.Services.TenantService;
 using AspNano.Application.Services.VenueService;
 using AspNano.Infrastructure;
+using AspNano.WebApi.MappingProfiles;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -107,6 +108,7 @@ namespace AspNano.WebApi.Helper
             #region [-- REGISTERING SERVICES --]
             services.AddControllers();
             services.AddEndpointsApiExplorer();
+            services.AddAutoMapper(typeof(ProfileMapper));
             services.AddScoped<ITenantService, TenantService>();
             services.AddScoped<IVenueService, VenueService>();
             #endregion

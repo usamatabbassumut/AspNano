@@ -3,6 +3,7 @@ using AspNano.Common.HelperClasses;
 using AspNano.DTOs.VenueDTOs;
 using AspNano.Entities.Entities;
 using AspNano.Infrastructure;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,12 @@ namespace AspNano.Application.Repository.VenueRepository
     public class VenueRepository : Repository<VenueEntity>, IVenueRepository
     {
         private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IMapper _mapper;
 
-        public VenueRepository(IHttpContextAccessor _httpContextAccessor, ApplicationDbContext dbContext) : base(dbContext)
+        public VenueRepository(IHttpContextAccessor _httpContextAccessor, IMapper mapper, ApplicationDbContext dbContext) : base(dbContext)
         {
             httpContextAccessor = _httpContextAccessor;
+            _mapper = mapper;
         }
 
         public bool CheckExisting(string venueName)
@@ -27,22 +30,20 @@ namespace AspNano.Application.Repository.VenueRepository
             return GetWithCondition(x => x.VenueName.ToLower() == venueName.ToLower()).Any();
         }
 
-        public async Task<bool> SaveVenueAsync(CreateVenueRequest modal)
+        public async Task<Guid> SaveVenueAsync(CreateVenueRequest modal)
         {
             bool isVenueExists =CheckExisting(modal.VenueName);
             if (isVenueExists) throw new Exception("Venue already exists.");
             //Mapping the values
             VenueEntity venue = new VenueEntity();
+            venue = _mapper.Map(modal,venue);
             venue.Id = Guid.NewGuid();
             venue.TenantId = Guid.Parse(TenantUserInfo.TenantID); //Getting tenant id from common helper class
-            venue.VenueName = modal.VenueName;
-            venue.VenueType = modal.VenueType;
-            venue.VenueDescription = modal.VenueDescription;
             venue.CreatedBy = Guid.Parse(TenantUserInfo.UserID);
             try
             {
                 await Add(venue);
-                return true;
+                return venue.Id;
             }
             catch (Exception ex)
             {
@@ -52,39 +53,18 @@ namespace AspNano.Application.Repository.VenueRepository
 
         public async Task<Guid> UpdateVenueAsync(UpdateVenueRequest modal, Guid id)
         {
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var tenantId = httpContextAccessor.HttpContext.User.FindFirst("tenantId").Value;
-
-
-
-            //This is how its done with FSH which I like
-            //look up ID, see if exists
-            //do the update 
-            //return the GUID if successful
-
-
-            //var brand = await _repository.GetByIdAsync<Brand>(id);
-            //if (brand == null) throw new EntityNotFoundException(string.Format(_localizer["brand.notfound"], id)); //dont care about localization
-
-            //await _repository.UpdateAsync<Brand>(updatedBrand);
-            //await _repository.SaveChangesAsync();
-            //return await Result<Guid>.SuccessAsync(id);
-
             bool isPresent = false;
             isPresent= GetWithCondition(x=>x.Id==id).Any();
 
-            if (isPresent == false)
+            if (!isPresent)
                 throw new Exception("Venue not found");
 
             //Mapping the values
             VenueEntity venue = new VenueEntity();
-            venue.Id = id; //should check if exists
-
-            venue.TenantId = Guid.Parse(tenantId);
-            venue.VenueName = modal.VenueName;
-            venue.VenueType = modal.VenueType;
-            venue.VenueDescription = modal.VenueDescription;
-            venue.LastModifiedBy = Guid.Parse(userId);
+            venue= _mapper.Map(modal,venue);
+            venue.TenantId = Guid.Parse(TenantUserInfo.TenantID);
+            venue.Id = id; 
+            venue.LastModifiedBy = Guid.Parse(TenantUserInfo.UserID);
             try
             {
                 await Change(venue);
