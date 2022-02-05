@@ -1,6 +1,8 @@
 ﻿using AspNano.Application.Services.VenueService;
 using AspNano.DTOs.VenueDTOs;
 using AspNano.Enums;
+using AspNano.WebApi.Validators;
+using AspNano.WebApi.Validators.Venues;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +26,7 @@ namespace AspNano.WebApi.Controllers
 
 
         [HttpGet]
-        public List<VenueDTO> GetAll()
+        public  List<VenueDTO> GetAll()
         {
             var list = _venueService.GetAllVenuesAsync(); //use the Async name convention when using async methods
             return list;
@@ -36,8 +38,17 @@ namespace AspNano.WebApi.Controllers
         {
             try
             {
-                var result = await _venueService.SaveVenueAsync(request);
-                return this.StatusCode((int)StatusCodeEnum.Ok, result);
+                var validate = new CreateVenueValidator();
+                var validateResult = validate.Validate(request);
+                if (validateResult.IsValid)
+                {
+                    var result = await _venueService.SaveVenueAsync(request);
+                    return this.StatusCode((int)StatusCodeEnum.Ok, result);
+
+                }
+                else {
+                    return BadRequest(validateResult.Errors);
+                }
             }
             catch (Exception ex)
             {
@@ -51,8 +62,16 @@ namespace AspNano.WebApi.Controllers
         {
             try
             {
-                var result = await _venueService.UpdateVenueAsync(request, id);
-                return this.StatusCode((int)StatusCodeEnum.Ok, result);
+                var validate = new UpdateVenueValidator();
+                var validateResult = validate.Validate(request);
+                if (validateResult.IsValid)
+                {
+                    var result = await _venueService.UpdateVenueAsync(request, id);
+                    return this.StatusCode((int)StatusCodeEnum.Ok, result);
+                }
+                else {
+                    return BadRequest(validateResult.Errors);
+                }
             }
             catch (Exception ex)
             {
@@ -62,11 +81,11 @@ namespace AspNano.WebApi.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(Guid Id)
+        public async Task<IActionResult> DeleteAsync(Guid id)
         {
             try
             {
-                bool result = await _venueService.DeleteVenueAsync(Id);
+                bool result = await _venueService.DeleteVenueAsync(id);
                 return this.StatusCode((int)StatusCodeEnum.Ok, result);
             }
             catch (Exception ex)
