@@ -1,5 +1,139 @@
-﻿//Uncomment code to view
-//This was taken from my modified FSH implementation
+﻿using AspNano.Application.Services.VenueService;
+using AspNano.Common.HelperClasses;
+using AspNano.DTOs.VenueDTOs;
+using AspNano.Enums;
+using AspNano.Infrastructure;
+using AspNano.WebApi.Models;
+using AspNano.WebApi.Validators;
+using AspNano.WebApi.Validators.Venues;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Text;
+
+namespace AspNano.WebApi.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public  class IdentityController : ControllerBase
+    {
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public IdentityController(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
+
+        // While Uploading to a server we will activate the smtp
+
+        //not high priority but need a reset password facility -- available to all users
+        //[HttpPost("reset-password")]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> ResetPasswordAsync(ResetPasswordRequest request)
+        //{
+        //    return Ok(await _identityService.ResetPasswordAsync(request));
+        //}
+
+        //View all users in a list 
+        [Route("UserList")]
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            //This will be used for admin users to view a listing of all their users
+
+            var usersList = await _userManager.Users.ToListAsync();
+            return Ok(usersList);
+        }
+
+
+
+        //BASIC PERMISSIONS -----------------------------
+        [HttpGet("profile")] //get your own profile (basic user permissions)
+        public async Task<IActionResult> GetProfileDetailsAsync()
+        {
+            var usersList=await _userManager.Users.Where(x=>x.Id== TenantUserInfo.UserID).FirstOrDefaultAsync();
+            return Ok(usersList);
+        }
+
+        [HttpGet("profile/{id}")] //ADMIN Get a profile (clicking edit in the user list)
+        public async Task<IActionResult> GetProfileDetailsAsync(Guid id)
+        {
+            var usersList = await _userManager.Users.Where(x => x.Id == Convert.ToString(id)).FirstOrDefaultAsync();
+            return Ok(usersList);
+        }
+
+
+
+
+        [HttpPost("register")]
+        public async Task<ActionResult> RegisterAsync([FromBody] MyLoginModelType myLoginModel)
+        {
+
+            var userExist = await _userManager.FindByEmailAsync(myLoginModel.Email);
+            if (userExist != null)
+            {
+                return Ok(new { Result = "User Already Exist" });
+            }
+
+            else
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = myLoginModel.Email,
+                    Email = myLoginModel.Email,
+                    EmailConfirmed = false,
+                    TenantId= Guid.Parse(TenantUserInfo.TenantID)
+                };
+
+                var result = await _userManager.CreateAsync(user, myLoginModel.Password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+                    return Ok(new { Result = "User Created Successfully" });
+                }
+                else
+                {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    foreach (var error in result.Errors)
+                    {
+                        stringBuilder.Append(error.Description);
+                    }
+                    return Ok(new { Result = $"Refister Fail:{stringBuilder.ToString()}" });
+                }
+            }
+        }
+
+
+
+        //[HttpPut("profile")] //Update your own profile (basic user permissions)
+        //public async Task<IActionResult> UpdateProfileAsync(UpdateProfileRequest request)
+        //{
+        //    return Ok(await _identityService.UpdateProfileAsync(request, _user.GetUserId().ToString()));
+        //}
+
+
+
+        [HttpPut("profile/{id}")] //ADMIN Update A user
+        public async Task<IActionResult> UpdateUserAsync(UpdateIdentityUserViewModel request, Guid id)
+        {
+
+
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            user.PhoneNumber = request.PhoneNumber;
+            user.Email = request.Email;
+           
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await _userManager.UpdateAsync(user);
+            return Ok();
+        }
 
 
 
@@ -7,93 +141,6 @@
 
 
 
-//using ServerApp.Application.Abstractions.Services.Identity;
-//using ServerApp.Domain.Constants;
-//using ServerApp.Infrastructure.Identity.Permissions;
-//using ServerApp.Shared.DTOs.Identity;
-//using Microsoft.AspNetCore.Authorization;
-//using Microsoft.AspNetCore.Mvc;
+    }
 
-//namespace ServerApp.Host.Controllers.Identity;
-
-//[ApiController]
-//[Route("api/[controller]")]
-//public sealed class IdentityController : ControllerBase
-//{
-//    private readonly ICurrentUser _user;
-//    private readonly IIdentityService _identityService;
-//    private readonly IUserService _userService;
-
-//    public IdentityController(IIdentityService identityService, ICurrentUser user, IUserService userService)
-//    {
-//        _identityService = identityService;
-//        _user = user;
-//        _userService = userService;
-//    }
-
-
-//    //BASIC PERMISSIONS -----------------------------
-//    [HttpGet("profile")] //get your own profile (basic user permissions)
-//    public async Task<IActionResult> GetProfileDetailsAsync()
-//    {
-//        return Ok(await _userService.GetAsync(_user.GetUserId().ToString()));
-//    }
-
-//    [HttpPut("profile")] //Update your own profile (basic user permissions)
-//    public async Task<IActionResult> UpdateProfileAsync(UpdateProfileRequest request)
-//    {
-//        return Ok(await _identityService.UpdateProfileAsync(request, _user.GetUserId().ToString()));
-//    }
-
-
-
-//    //ADMIN PERMISSIONS -------------------
-//    //For admin users to create new users
-//    [HttpPost("register")]
-    
-//    public async Task<IActionResult> RegisterAsync(RegisterRequest request)
-//    {
-//        string origin = GenerateOrigin();
-//        return Ok(await _identityService.RegisterAsync(request, origin));
-//    }
-
-
-
-
-//    //View all users in a list 
-//    [Route("UserList")]
-//    [HttpGet]
-//    public async Task<IActionResult> GetAllAsync()
-//    {
-//        //This will be used for admin users to view a listing of all their users
-
-//        var users = await _userService.GetAllAsync();
-//        return Ok(users);
-//    }
-
-
-
-//    [HttpGet("profile/{id}")] //ADMIN Get a profile (clicking edit in the user list)
-//    public async Task<IActionResult> GetProfileDetailsAsync(Guid id)
-//    {
-//        return Ok(await _userService.GetAsync(id.ToString()));
-//    }
-
-//    [HttpPut("profile/{id}")] //ADMIN Update A user
-//    public async Task<IActionResult> UpdateUserAsync(UpdateProfileRequest request, Guid id)
-//    {
-//        return Ok(await _identityService.UpdateProfileAsync(request, id.ToString()));
-//    }
-
-
-
-
-//    //not high priority but need a reset password facility -- available to all users
-//    [HttpPost("reset-password")]
-//    [AllowAnonymous]
-//    public async Task<IActionResult> ResetPasswordAsync(ResetPasswordRequest request)
-//    {
-//        return Ok(await _identityService.ResetPasswordAsync(request));
-//    }
-
-//}
+}
