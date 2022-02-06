@@ -1,6 +1,7 @@
 ﻿using AspNano.Application.Repository.VenueRepository;
 using AspNano.Common.ApplicationExtensions;
 using AspNano.Common.HelperClasses;
+using AspNano.DTOs.ResponseDTOs;
 using AspNano.DTOs.VenueDTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -33,7 +34,6 @@ namespace AspNano.Application.Services.VenueService
         public async Task<Guid> UpdateVenueAsync(UpdateVenueRequest modal, Guid id)
         {
             return await _venueRepository.UpdateVenueAsync(modal, id);
-
         }
 
         //implement automapper
@@ -41,18 +41,11 @@ namespace AspNano.Application.Services.VenueService
         public PagedResponse<List<VenueDTO>> GetAllVenuesAsync(PaginationFilter filter)
         {
 
-            //var pagedData = await context.Customers
-            //    .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
-            //    .Take(validFilter.PageSize)
-            //    .ToListAsync();
-            //var totalRecords = await context.Customers.CountAsync();
-            //return Ok(new PagedResponse<List<Customer>>(pagedData, validFilter.PageNumber, validFilter.PageSize));
-
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
             var pagedData= _venueRepository.GetAllVenues()
              .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
               .Take(validFilter.PageSize)
-                .Where(x => x.TenantId == Guid.Parse(TenantUserInfo.TenantID))
+                .Where(x => x.TenantId == Guid.Parse(TenantUserInfo.TenantID) && (x.IsDeleted==false||x.IsDeleted==null))
                 .Include(x=>x.Tenant).Select(x => new VenueDTO
             {
                 Id = x.Id,
@@ -69,7 +62,7 @@ namespace AspNano.Application.Services.VenueService
 
         }
 
-        public async Task<bool> DeleteVenueAsync(Guid Id)
+        public async Task<ResponseDTO> DeleteVenueAsync(Guid Id)
         {
              //check tenant obviously
              return await _venueRepository.DeleteVenueAsync(Id);

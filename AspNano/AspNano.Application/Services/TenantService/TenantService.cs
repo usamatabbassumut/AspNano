@@ -33,13 +33,20 @@ namespace AspNano.Application.Services.TenantService
             }).ToList();
         }
 
-        public async Task<bool> SaveUpdateTenant(CreateTenantRequest modal)
+        public async Task<bool> SaveTenant(CreateTenantRequest modal)
         {
-            return await _tenantRepository.SaveUpdateTenant(modal);
+            return await _tenantRepository.SaveTenant(modal);
         }
+
+        public async Task<Guid> UpdateTenantAsync(UpdateTenantRequest modal, Guid id)
+        {
+            return await _tenantRepository.UpdateTenantAsync(modal, id);
+        }
+
         public async Task<ResponseDTO> RemoveTenant(Guid Id)
         {
             return await _tenantRepository.RemoveTenant(Id);
         }
+
     }
 }

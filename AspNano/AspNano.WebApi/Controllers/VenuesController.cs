@@ -1,4 +1,5 @@
 ﻿using AspNano.Application.Services.VenueService;
+using AspNano.DTOs.ResponseDTOs;
 using AspNano.DTOs.VenueDTOs;
 using AspNano.Enums;
 using AspNano.WebApi.Validators;
@@ -81,17 +82,9 @@ namespace AspNano.WebApi.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        public async Task<ResponseDTO> DeleteAsync(Guid id)
         {
-            try
-            {
-                bool result = await _venueService.DeleteVenueAsync(id);
-                return this.StatusCode((int)StatusCodeEnum.Ok, result);
-            }
-            catch (Exception ex)
-            {
-                return this.StatusCode((int)StatusCodeEnum.Conflict, ex.Message);
-            }
+          return await _venueService.DeleteVenueAsync(id);
         }
 
 

@@ -1,4 +1,6 @@
-﻿using AspNano.DTOs.VenueDTOs;
+﻿using AspNano.Core.Entities;
+using AspNano.DTOs.TenantDTOs;
+using AspNano.DTOs.VenueDTOs;
 using AspNano.Entities.Entities;
 using AutoMapper;
 
@@ -10,6 +12,7 @@ namespace AspNano.WebApi.MappingProfiles
         {
             CreateMap<CreateVenueRequest, VenueEntity>();
             CreateMap<UpdateVenueRequest, VenueEntity>();
+            CreateMap<UpdateTenantRequest, TenantEntity>();
         }
     }
 }

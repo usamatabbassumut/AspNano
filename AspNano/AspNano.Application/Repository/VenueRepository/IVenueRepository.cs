@@ -1,4 +1,5 @@
 ﻿using AspNano.Application.EFRepository;
+using AspNano.DTOs.ResponseDTOs;
 using AspNano.DTOs.VenueDTOs;
 using AspNano.Entities.Entities;
 using System;
@@ -14,9 +15,7 @@ namespace AspNano.Application.Repository.VenueRepository
         bool CheckExisting(string key);
         Task<Guid> SaveVenueAsync(CreateVenueRequest modal);
         Task<Guid> UpdateVenueAsync(UpdateVenueRequest modal, Guid id);
-        Task<bool> DeleteVenueAsync(Guid Id);
+        Task<ResponseDTO> DeleteVenueAsync(Guid Id);
         IQueryable<VenueEntity> GetAllVenues();
-
-
     }
 }

@@ -2,6 +2,7 @@
 using AspNano.DTOs.ResponseDTOs;
 using AspNano.DTOs.TenantDTOs;
 using AspNano.Enums;
+using AspNano.WebApi.Validators.Tenants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,8 +37,31 @@ namespace AspNano.WebApi.Controllers
         {
             try
             {
-                bool result = await _tenantService.SaveUpdateTenant(modal);
+                bool result = await _tenantService.SaveTenant(modal);
                 return this.StatusCode((int)StatusCodeEnum.Ok, result);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode((int)StatusCodeEnum.Conflict, ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(UpdateTenantRequest request, Guid id)
+        {
+            try
+            {
+                var validate = new UpdateTenantValidator();
+                var validateResult = validate.Validate(request);
+                if (validateResult.IsValid)
+                {
+                    var result = await _tenantService.UpdateTenantAsync(request, id);
+                    return this.StatusCode((int)StatusCodeEnum.Ok, result);
+                }
+                else
+                {
+                    return BadRequest(validateResult.Errors);
+                }
             }
             catch (Exception ex)
             {

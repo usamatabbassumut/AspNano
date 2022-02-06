@@ -25,10 +25,7 @@ namespace AspNano.WebApi.Controllers
         {
             _userManager = userManager;
         }
-
-
         // While Uploading to a server we will activate the smtp
-
         //not high priority but need a reset password facility -- available to all users
         //[HttpPost("reset-password")]
         //[AllowAnonymous]
@@ -36,7 +33,6 @@ namespace AspNano.WebApi.Controllers
         //{
         //    return Ok(await _identityService.ResetPasswordAsync(request));
         //}
-
         //View all users in a list 
         [Route("UserList")]
         [HttpGet]
@@ -47,9 +43,6 @@ namespace AspNano.WebApi.Controllers
             var usersList = await _userManager.Users.ToListAsync();
             return Ok(usersList);
         }
-
-
-
         //BASIC PERMISSIONS -----------------------------
         [HttpGet("profile")] //get your own profile (basic user permissions)
         public async Task<IActionResult> GetProfileDetailsAsync()
@@ -64,10 +57,6 @@ namespace AspNano.WebApi.Controllers
             var usersList = await _userManager.Users.Where(x => x.Id == Convert.ToString(id)).FirstOrDefaultAsync();
             return Ok(usersList);
         }
-
-
-
-
         [HttpPost("register")]
         public async Task<ActionResult> RegisterAsync([FromBody] MyLoginModelType myLoginModel)
         {
@@ -105,9 +94,6 @@ namespace AspNano.WebApi.Controllers
                 }
             }
         }
-
-
-
         [HttpPut("profile")] //Update your own profile (basic user permissions)
         public async Task<IActionResult> UpdateProfileAsync(UpdateIdentityUserViewModel request)
         {
@@ -123,8 +109,6 @@ namespace AspNano.WebApi.Controllers
             await _userManager.UpdateAsync(user);
             return Ok();
         }
-
-
 
         [HttpPut("profile/{id}")] //ADMIN Update A user
         public async Task<IActionResult> UpdateUserAsync(UpdateIdentityUserViewModel request, Guid id)
@@ -145,13 +129,6 @@ namespace AspNano.WebApi.Controllers
             await _userManager.UpdateAsync(user);
             return Ok();
         }
-
-
-
-
-
-
-
     }
 
 }

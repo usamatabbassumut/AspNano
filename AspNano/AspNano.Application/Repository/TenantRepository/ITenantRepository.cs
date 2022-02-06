@@ -15,8 +15,10 @@ namespace AspNano.Application.Repository.TenantRepository
         IQueryable<TenantEntity> GetAllTenants();
         bool CheckExisting(string key);
 
-        Task<bool> SaveUpdateTenant(CreateTenantRequest modal);
+        Task<bool> SaveTenant(CreateTenantRequest modal);
         Task<ResponseDTO> RemoveTenant(Guid Id);
+
+        Task<Guid> UpdateTenantAsync(UpdateTenantRequest modal, Guid id);
 
     }
 }

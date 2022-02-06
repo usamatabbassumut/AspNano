@@ -1,5 +1,6 @@
 ﻿using AspNano.Application.EFRepository;
 using AspNano.Common.HelperClasses;
+using AspNano.DTOs.ResponseDTOs;
 using AspNano.DTOs.VenueDTOs;
 using AspNano.Entities.Entities;
 using AspNano.Infrastructure;
@@ -81,17 +82,23 @@ namespace AspNano.Application.Repository.VenueRepository
           return GetAll();
         }
 
-        public async Task<bool> DeleteVenueAsync(Guid Id)
+        public async Task<ResponseDTO> DeleteVenueAsync(Guid Id)
         {
-            try
+        
+
+            var getVenue = await Get(Id);
+            if (getVenue != null)
             {
-               await Delete(Id);
-                return true;
+                getVenue.IsDeleted = true;
+                getVenue.DeletedOn = DateTime.UtcNow;
+                var userId = httpContextAccessor.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                getVenue.DeletedBy = !string.IsNullOrEmpty(userId) ? Guid.Parse(userId) : new Guid();
+                //Updating
+                await Change(getVenue);
+
+                return new ResponseDTO() { IsSuccessful = true, Response = "Deleted Successfully", StatusCode = 1 };
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return new ResponseDTO() { IsSuccessful = false, Response = "Deleted Failed", StatusCode = 0 };
 
         }
     }

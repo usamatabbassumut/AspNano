@@ -1,4 +1,5 @@
-﻿using AspNano.DTOs.VenueDTOs;
+﻿using AspNano.DTOs.ResponseDTOs;
+using AspNano.DTOs.VenueDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace AspNano.Application.Services.VenueService
     {
         Task<Guid> SaveVenueAsync(CreateVenueRequest modal);
         Task<Guid> UpdateVenueAsync(UpdateVenueRequest modal, Guid id);
-        Task<bool> DeleteVenueAsync(Guid Id);
+        Task<ResponseDTO> DeleteVenueAsync(Guid Id);
 
         PagedResponse<List<VenueDTO>> GetAllVenuesAsync(PaginationFilter filter);
 
