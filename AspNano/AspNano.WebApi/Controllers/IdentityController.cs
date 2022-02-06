@@ -108,29 +108,40 @@ namespace AspNano.WebApi.Controllers
 
 
 
-        //[HttpPut("profile")] //Update your own profile (basic user permissions)
-        //public async Task<IActionResult> UpdateProfileAsync(UpdateProfileRequest request)
-        //{
-        //    return Ok(await _identityService.UpdateProfileAsync(request, _user.GetUserId().ToString()));
-        //}
+        [HttpPut("profile")] //Update your own profile (basic user permissions)
+        public async Task<IActionResult> UpdateProfileAsync(UpdateIdentityUserViewModel request)
+        {
+            
+            var user = await _userManager.FindByIdAsync(TenantUserInfo.UserID);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+            user.PhoneNumber = request.PhoneNumber;
+            user.UserName = request.UserName;
+            await _userManager.UpdateAsync(user);
+            return Ok();
+        }
 
 
 
         [HttpPut("profile/{id}")] //ADMIN Update A user
         public async Task<IActionResult> UpdateUserAsync(UpdateIdentityUserViewModel request, Guid id)
         {
-
+            if (id == Guid.Parse(TenantUserInfo.UserID))
+            {
+                return BadRequest(new { Result = "You cannot update the logged-in user." });
+            }
 
             var user = await _userManager.FindByIdAsync(id.ToString());
-            user.PhoneNumber = request.PhoneNumber;
-            user.Email = request.Email;
-           
 
             if (user == null)
             {
                 return NotFound();
             }
-
+            user.PhoneNumber = request.PhoneNumber;
+            user.UserName = request.UserName;
             await _userManager.UpdateAsync(user);
             return Ok();
         }
