@@ -38,9 +38,22 @@ namespace AspNano.Application.Services.VenueService
 
         //implement automapper
         //async?
-        public List<VenueDTO> GetAllVenuesAsync()
+        public PagedResponse<List<VenueDTO>> GetAllVenuesAsync(PaginationFilter filter)
         {
-            return  _venueRepository.GetAllVenues().Where(x => x.TenantId == Guid.Parse(TenantUserInfo.TenantID)).Include(x=>x.Tenant).Select(x => new VenueDTO
+
+            //var pagedData = await context.Customers
+            //    .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+            //    .Take(validFilter.PageSize)
+            //    .ToListAsync();
+            //var totalRecords = await context.Customers.CountAsync();
+            //return Ok(new PagedResponse<List<Customer>>(pagedData, validFilter.PageNumber, validFilter.PageSize));
+
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            var pagedData= _venueRepository.GetAllVenues()
+             .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+              .Take(validFilter.PageSize)
+                .Where(x => x.TenantId == Guid.Parse(TenantUserInfo.TenantID))
+                .Include(x=>x.Tenant).Select(x => new VenueDTO
             {
                 Id = x.Id,
                 VenueName = x.VenueName, 
@@ -49,6 +62,11 @@ namespace AspNano.Application.Services.VenueService
                 VenueTypeId = (int)x.VenueType
 
             }).ToList();
+            var totalRecords =  _venueRepository.GetAllVenues()
+                .Where(x => x.TenantId == Guid.Parse(TenantUserInfo.TenantID)).CountAsync();
+
+            return (new PagedResponse<List<VenueDTO>>(pagedData, validFilter.PageNumber, validFilter.PageSize));
+
         }
 
         public async Task<bool> DeleteVenueAsync(Guid Id)

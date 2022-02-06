@@ -13,7 +13,7 @@ namespace AspNano.Application.Services.VenueService
         Task<Guid> UpdateVenueAsync(UpdateVenueRequest modal, Guid id);
         Task<bool> DeleteVenueAsync(Guid Id);
 
-       List<VenueDTO> GetAllVenuesAsync();
+        PagedResponse<List<VenueDTO>> GetAllVenuesAsync(PaginationFilter filter);
 
     }
 }

@@ -25,10 +25,10 @@ namespace AspNano.WebApi.Controllers
         }
 
 
-        [HttpGet]
-        public  List<VenueDTO> GetAll()
+        [HttpPost("GetAllVenues")]
+        public PagedResponse<List<VenueDTO>> GetAll(PaginationFilter filter)
         {
-            var list = _venueService.GetAllVenuesAsync(); //use the Async name convention when using async methods
+            var list = _venueService.GetAllVenuesAsync(filter); //use the Async name convention when using async methods
             return list;
         }
 
