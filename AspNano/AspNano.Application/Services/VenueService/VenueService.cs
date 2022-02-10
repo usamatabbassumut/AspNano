@@ -36,16 +36,12 @@ namespace AspNano.Application.Services.VenueService
             return await _venueRepository.UpdateVenueAsync(modal, id);
         }
 
-        //implement automapper
-        //async?
         public PagedResponse<List<VenueDTO>> GetAllVenuesAsync(PaginationFilter filter)
         {
 
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
             var pagedData= _venueRepository.GetAllVenues()
-             .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
-              .Take(validFilter.PageSize)
-                .Where(x => x.TenantId == Guid.Parse(TenantUserInfo.TenantID) && (x.IsDeleted==false||x.IsDeleted==null))
+                .Where(x => x.TenantId == Guid.Parse(TenantUserInfo.TenantID) && (x.IsDeleted!=true))
                 .Include(x=>x.Tenant).Select(x => new VenueDTO
             {
                 Id = x.Id,
@@ -54,9 +50,10 @@ namespace AspNano.Application.Services.VenueService
                 VenueType = NanoExtension.GetEnumDescription(x.VenueType), 
                 VenueTypeId = (int)x.VenueType
 
-            }).ToList();
-            var totalRecords =  _venueRepository.GetAllVenues()
-                .Where(x => x.TenantId == Guid.Parse(TenantUserInfo.TenantID)).CountAsync();
+            })
+             .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+              .Take(validFilter.PageSize)
+              .ToList();
 
             return (new PagedResponse<List<VenueDTO>>(pagedData, validFilter.PageNumber, validFilter.PageSize));
 
@@ -64,7 +61,6 @@ namespace AspNano.Application.Services.VenueService
 
         public async Task<ResponseDTO> DeleteVenueAsync(Guid Id)
         {
-             //check tenant obviously
              return await _venueRepository.DeleteVenueAsync(Id);
         }
     }
