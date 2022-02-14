@@ -17,5 +17,6 @@ namespace AspNano.Application.Repository.VenueRepository
         Task<Guid> UpdateVenueAsync(UpdateVenueRequest modal, Guid id);
         Task<ResponseDTO> DeleteVenueAsync(Guid Id);
         IQueryable<VenueEntity> GetAllVenues();
+        int GetTotalCount();
     }
 }
