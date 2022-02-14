@@ -80,18 +80,15 @@ namespace AspNano.Application.Repository.VenueRepository
             }
         }
 
-        public IQueryable<VenueEntity> GetAllVenues()
+        public  IQueryable<VenueEntity> GetAllVenues()
         {
           return GetAll();
         }
 
-        public int GetTotalCount()
-        {
-            return GetAll().Count();
-        }
-
         public async Task<ResponseDTO> DeleteVenueAsync(Guid Id)
         {
+        
+
             var getVenue = await Get(Id);
             if (getVenue != null)
             {
