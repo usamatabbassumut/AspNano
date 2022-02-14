@@ -44,10 +44,10 @@ namespace AspNano.Infrastructure.Persistence
         public string CurrentTenant { get; set; }
 
         //Put this into the constructor -- , ITenantService tenantService
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ITenantService tenantService) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             
-            _tenantService = tenantService;
+            _tenantService = _tenantService;
             CurrentTenant = _tenantService?.GetCurrentTenant()?.Id; //<-------- FIX THIS
     
 

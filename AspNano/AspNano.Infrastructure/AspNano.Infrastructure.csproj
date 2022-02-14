@@ -29,8 +29,4 @@
     <ProjectReference Include="..\AspNano.DTOs\AspNano.DTOs.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\Migrations\" />
-  </ItemGroup>
-
 </Project>

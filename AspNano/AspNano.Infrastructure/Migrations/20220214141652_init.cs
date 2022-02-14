@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace AspNano.Infrastructure.Persistence.Migrations
+namespace AspNano.Infrastructure.Migrations
 {
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -221,7 +221,7 @@ namespace AspNano.Infrastructure.Persistence.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TenantId", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "297af0a9-060d-4ac7-b014-e421588150a0", 0, "e3c8b84d-4f25-44dd-bd60-b4fa09b287a0", "admin@root.com", true, false, null, "admin@root.com", "ADMINROOT", "AQAAAAEAACcQAAAAEGz66Hhb8QPFoDia5F+/nb9I7lBHTtA8h8OQ5g0rdpw4jpJe01SF4htYcy+gw1nsug==", "+111111111111", true, "48214385-b028-49e2-8104-cd61e2e78ccb", new Guid("297af0a9-060d-4ac7-b014-e421588150a0"), false, "adminRoot" });
+                values: new object[] { "297af0a9-060d-4ac7-b014-e421588150a0", 0, "d2e9c237-700c-4297-a689-0d757794e3fb", "admin@root.com", true, false, null, "admin@root.com", "ADMINROOT", "AQAAAAEAACcQAAAAEAZHPuyocnSMv58DMCnQ7OwqIxwL3fL2wC0htvZusewtVr91gFbCzPz3oE0erExBSg==", "+111111111111", true, "f6e5959e-5a17-48fa-829b-8a862ab15415", new Guid("297af0a9-060d-4ac7-b014-e421588150a0"), false, "adminRoot" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

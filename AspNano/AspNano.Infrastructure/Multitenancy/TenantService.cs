@@ -16,10 +16,10 @@ namespace AspNano.Infrastructure.Multitenancy
         
         //private readonly ITenantRepository _tenantRepository;
         private TenantDTO _currentTenant;
-        private readonly TenantManagementDbContext _tenantManagementDbContext;
+        private readonly ApplicationDbContext _tenantManagementDbContext;
         private HttpContext _httpContext;
 
-        public TenantService(TenantManagementDbContext tenantManagementDbContext, IHttpContextAccessor contextAccessor)
+        public TenantService(ApplicationDbContext tenantManagementDbContext, IHttpContextAccessor contextAccessor)
         {
             _tenantManagementDbContext = tenantManagementDbContext;
 
@@ -42,10 +42,6 @@ namespace AspNano.Infrastructure.Multitenancy
             {
                 throw new Exception("Invalid Tenant!");
             }
-
-
-       
-
         }
 
         //public TenantService(ITenantRepository tenantRepository)
@@ -106,7 +102,7 @@ namespace AspNano.Infrastructure.Multitenancy
             }
 
             var tenantDto = new TenantDTO();
-            var tenantInfo = _tenantManagementDbContext.Tenants.Where(x=>x.Key == tenant).FirstOrDefault();
+            var tenantInfo = _tenantManagementDbContext.Tenant.Where(x=>x.Key == tenant).FirstOrDefault();
             
             if (tenantInfo != null)
             {
