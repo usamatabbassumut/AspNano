@@ -1,7 +1,9 @@
 ﻿using AspNano.Application.Services.VenueService;
+using AspNano.Domain.Entities;
 using AspNano.DTOs.ResponseDTOs;
 using AspNano.DTOs.VenueDTOs;
 using AspNano.Enums;
+using AspNano.Infrastructure.Persistence;
 using AspNano.WebApi.Validators;
 using AspNano.WebApi.Validators.Venues;
 using Microsoft.AspNetCore.Authorization;
@@ -10,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AspNano.WebApi.Controllers
 {
- 
+
     [Authorize(Roles = "root,admin")]
 
     [Route("api/[controller]")]
@@ -29,9 +31,13 @@ namespace AspNano.WebApi.Controllers
         [HttpPost("GetAllVenues")]
         public PagedResponse<List<VenueDTO>> GetAll(PaginationFilter filter)
         {
-            var list = _venueService.GetAllVenuesAsync(filter); //use the Async name convention when using async methods
+            var list = _venueService.GetAllVenuesAsync(filter); 
+
             return list;
         }
+
+
+      
 
 
         [HttpPost]

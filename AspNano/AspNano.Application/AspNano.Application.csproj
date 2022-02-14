@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AspNano.Common\AspNano.Common.csproj" />
-    <ProjectReference Include="..\AspNano.Core\AspNano.Entities.csproj" />
+    <ProjectReference Include="..\AspNano.Core\AspNano.Domain.csproj" />
     <ProjectReference Include="..\AspNano.DTOs\AspNano.DTOs.csproj" />
     <ProjectReference Include="..\AspNano.Infrastructure\AspNano.Infrastructure.csproj" />
   </ItemGroup>

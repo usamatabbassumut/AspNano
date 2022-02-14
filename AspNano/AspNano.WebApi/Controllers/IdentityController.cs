@@ -2,7 +2,7 @@
 using AspNano.Common.HelperClasses;
 using AspNano.DTOs.VenueDTOs;
 using AspNano.Enums;
-using AspNano.Infrastructure;
+using AspNano.Infrastructure.Persistence;
 using AspNano.WebApi.Models;
 using AspNano.WebApi.Validators;
 using AspNano.WebApi.Validators.Venues;

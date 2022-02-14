@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AspNano.Infrastructure.Migrations
+namespace AspNano.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220128145613_TenantId_Added_In_ApplicationUser")]
-    partial class TenantId_Added_In_ApplicationUser
+    [Migration("20220212220453_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,33 +24,18 @@ namespace AspNano.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("AspNano.Core.Entities.TenantEntity", b =>
+            modelBuilder.Entity("AspNano.Domain.Entities.TenantEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("DeletedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Key")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("LastModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -60,15 +45,12 @@ namespace AspNano.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("297af0a9-060d-4ac7-b014-e421588150a0"),
-                            CreatedBy = new Guid("29faf0a9-060d-4ac7-b014-e421588150a0"),
-                            CreatedOn = new DateTime(2022, 1, 28, 14, 56, 13, 351, DateTimeKind.Utc).AddTicks(4141),
-                            Key = "root",
-                            LastModifiedBy = new Guid("00000000-0000-0000-0000-000000000000"),
-                            LastModifiedOn = new DateTime(2022, 1, 28, 14, 56, 13, 351, DateTimeKind.Utc).AddTicks(4142)
+                            IsActive = true,
+                            Key = "root"
                         });
                 });
 
-            modelBuilder.Entity("AspNano.Entities.Entities.VenueEntity", b =>
+            modelBuilder.Entity("AspNano.Domain.Entities.VenueEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,6 +67,9 @@ namespace AspNano.Infrastructure.Migrations
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("LastModifiedBy")
                         .HasColumnType("uniqueidentifier");
@@ -187,19 +172,19 @@ namespace AspNano.Infrastructure.Migrations
                         {
                             Id = "297af0a9-060d-4ac7-b014-e421588150a0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "22d61f2e-2364-4aec-b673-66cb8d31be31",
-                            Email = "aspnano2022@info.com",
+                            ConcurrencyStamp = "e3c8b84d-4f25-44dd-bd60-b4fa09b287a0",
+                            Email = "admin@root.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "aspnano2022@info.com",
-                            NormalizedUserName = "OWNER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEId1UB8Mfq8IMTsHvRQ56P1lgm+gBE4Ni3sJpinx3FSqGeGZETeL4Xe+VlhjLJkCnw==",
+                            NormalizedEmail = "admin@root.com",
+                            NormalizedUserName = "ADMINROOT",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGz66Hhb8QPFoDia5F+/nb9I7lBHTtA8h8OQ5g0rdpw4jpJe01SF4htYcy+gw1nsug==",
                             PhoneNumber = "+111111111111",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "f03376fe-add5-41f1-8a83-065088e32db1",
+                            SecurityStamp = "48214385-b028-49e2-8104-cd61e2e78ccb",
                             TenantId = new Guid("297af0a9-060d-4ac7-b014-e421588150a0"),
                             TwoFactorEnabled = false,
-                            UserName = "aspnano"
+                            UserName = "adminRoot"
                         });
                 });
 
@@ -373,9 +358,9 @@ namespace AspNano.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("AspNano.Entities.Entities.VenueEntity", b =>
+            modelBuilder.Entity("AspNano.Domain.Entities.VenueEntity", b =>
                 {
-                    b.HasOne("AspNano.Core.Entities.TenantEntity", "Tenant")
+                    b.HasOne("AspNano.Domain.Entities.TenantEntity", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -386,7 +371,7 @@ namespace AspNano.Infrastructure.Migrations
 
             modelBuilder.Entity("AspNano.Infrastructure.ApplicationUser", b =>
                 {
-                    b.HasOne("AspNano.Core.Entities.TenantEntity", "Tenant")
+                    b.HasOne("AspNano.Domain.Entities.TenantEntity", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -1,4 +1,4 @@
-﻿using AspNano.Application.Services.TenantService;
+﻿using AspNano.Infrastructure.Multitenancy;
 using AspNano.DTOs.ResponseDTOs;
 using AspNano.DTOs.TenantDTOs;
 using AspNano.Enums;
@@ -20,14 +20,15 @@ namespace AspNano.WebApi.Controllers
             _tenantService = tenantService;
         }
 
-        [HttpGet]
-        //GET
-        //api/tenants
-        public async Task<List<TenantDTO>> GetAllTenants()
-        {
-            var list =  _tenantService.GetAllTenants();
-            return list;
-        }
+        //[HttpGet]
+        ////GET
+        ////api/tenants
+        //public async Task<List<TenantDTO>> GetAllTenants()
+        //{
+         
+        //    //var list =  _tenantService.GetAllTenants();
+        //    //return list;
+        //}
 
 
         [HttpPost]
@@ -37,8 +38,9 @@ namespace AspNano.WebApi.Controllers
         {
             try
             {
-                bool result = await _tenantService.SaveTenant(modal);
-                return this.StatusCode((int)StatusCodeEnum.Ok, result);
+                return Ok();
+                //bool result = await _tenantService.SaveTenant(modal);
+                //return this.StatusCode((int)StatusCodeEnum.Ok, result);
             }
             catch (Exception ex)
             {
@@ -55,8 +57,9 @@ namespace AspNano.WebApi.Controllers
                 var validateResult = validate.Validate(request);
                 if (validateResult.IsValid)
                 {
-                    var result = await _tenantService.UpdateTenantAsync(request, id);
-                    return this.StatusCode((int)StatusCodeEnum.Ok, result);
+                    return Ok();
+                   // var result = await _tenantService.UpdateTenantAsync(request, id);
+                    //return this.StatusCode((int)StatusCodeEnum.Ok, result);
                 }
                 else
                 {
@@ -69,10 +72,10 @@ namespace AspNano.WebApi.Controllers
             }
         }
 
-        [HttpDelete]
-        public async Task<ResponseDTO> DeleteTenant(Guid tenantId)
-        {
-            return await _tenantService.RemoveTenant(tenantId);
-        }
+        //[HttpDelete]
+        //public async Task<ResponseDTO> DeleteTenant(Guid tenantId)
+        //{
+        //    return await _tenantService.RemoveTenant(tenantId);
+        //}
     }
 }

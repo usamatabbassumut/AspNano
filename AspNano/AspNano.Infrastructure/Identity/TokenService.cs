@@ -1,61 +1,44 @@
 ﻿using AspNano.DTOs.AuthDTOs;
-using AspNano.DTOs.TenantDTOs;
-using AspNano.Enums;
-using AspNano.Infrastructure.Multitenancy;
 using AspNano.Infrastructure.Persistence;
-using AspNano.WebApi.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using AspNano.Infrastructure.Multitenancy;
 
 
-
-//It should only have two endpoints, get token and refresh token
-//registration to be done in Identity Controller (by admins only, no open registration)
-namespace AspNano.WebApi.Controllers
+namespace AspNano.Infrastructure.Identity
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TokensController : ControllerBase
+    public class TokenService : ITokenService
     {
-      
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ITenantService _tenantService;
         private readonly IConfiguration _configuration;
+        private readonly ITenantService _tenantService;
 
-        public TokensController(ApplicationDbContext dbContext,
+        public TokenService(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
             RoleManager<IdentityRole> roleManager,
-            ITenantService tenantService,
             IConfiguration configuration
             )
         {
-         
-            _userManager=userManager;   
-            _signInManager=signInManager;
-            _roleManager=roleManager;
-            _tenantService = tenantService;
-            _configuration =configuration;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _configuration = configuration;
         }
 
-
-        [AllowAnonymous]
-        [HttpPost]
-        //api/tokens
-        public async Task<IActionResult> Login([FromBody] TokenRequest request)
+        public async Task<TokenResponse> GetTokenAsync(TokenRequest request)
         {
-            var tenant = _tenantService.GetCurrentTenant();
             //check tenant here
             //tenant key must be in header 
-            var user = await _userManager.FindByEmailAsync(request.Email);
+            var user = await _userManager.FindByEmailAsync(request.Email.Trim());
             if (user != null && await _userManager.CheckPasswordAsync(user, request.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
@@ -63,7 +46,7 @@ namespace AspNano.WebApi.Controllers
                 new Claim(ClaimTypes.Name,user.Email),
                 new Claim(ClaimTypes.NameIdentifier,user.Id),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
-                new Claim("tenant", tenant.Key),
+                new Claim("tenant", user.TenantId.ToString()),
                 };
                 foreach (var userRole in userRoles)
                 {
@@ -78,16 +61,17 @@ namespace AspNano.WebApi.Controllers
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                     );
-                return Ok(new
+                return (new TokenResponse
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo,
                     User = user.Email,
+                    Token = new JwtSecurityTokenHandler().WriteToken(token),
+                    Expiration = token.ValidTo,
                     Id = user.Id,
                 });
             }
-            return Unauthorized();
+            throw new Exception();
+            //return HttpStatusCode.Unauthorized;
         }
-
     }
+
 }

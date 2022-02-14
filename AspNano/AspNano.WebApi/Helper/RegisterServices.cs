@@ -1,9 +1,8 @@
 ﻿using AspNano.Application.EFRepository;
-using AspNano.Application.Repository.TenantRepository;
 using AspNano.Application.Repository.VenueRepository;
-using AspNano.Application.Services.TenantService;
+using AspNano.Infrastructure.Multitenancy;
 using AspNano.Application.Services.VenueService;
-using AspNano.Infrastructure;
+using AspNano.Infrastructure.Persistence;
 using AspNano.WebApi.MappingProfiles;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -18,9 +17,11 @@ namespace AspNano.WebApi.Helper
 
         public static void ConfigureApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
-
             #region [-- REGISTERING DB CONTEXT SERVICE --]
+            //this resolved the circular issue -- separate DBcontexts
+            services.AddDbContext<TenantManagementDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))); 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
             #endregion
 
             #region [-- SETTING UP IDENTITY CONFIGURATIONS --]
@@ -31,7 +32,7 @@ namespace AspNano.WebApi.Helper
                 //configurations
                 options.SignIn.RequireConfirmedAccount = false;
             }
-            ).AddEntityFrameworkStores<ApplicationDbContext>()
+            ).AddEntityFrameworkStores<ApplicationDbContext>() 
              .AddDefaultTokenProviders();
 
             #endregion
@@ -59,7 +60,7 @@ namespace AspNano.WebApi.Helper
                         return Task.CompletedTask;
                     }
                 };
-
+                //x.MapInboundClaims = false;
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
@@ -111,14 +112,16 @@ namespace AspNano.WebApi.Helper
             services.AddAutoMapper(typeof(ProfileMapper));
             services.AddScoped<ITenantService, TenantService>();
             services.AddScoped<IVenueService, VenueService>();
+
+
+
             #endregion
 
             #region [-- REGISTERING REPOSITORIES --]
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
-            services.AddScoped<ITenantRepository,TenantRepository>();
             services.AddScoped<IVenueRepository, VenueRepository>();
             #endregion
-
+            services.AddHttpContextAccessor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
     }

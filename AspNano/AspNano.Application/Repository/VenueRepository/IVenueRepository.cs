@@ -1,7 +1,7 @@
 ﻿using AspNano.Application.EFRepository;
 using AspNano.DTOs.ResponseDTOs;
 using AspNano.DTOs.VenueDTOs;
-using AspNano.Entities.Entities;
+using AspNano.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

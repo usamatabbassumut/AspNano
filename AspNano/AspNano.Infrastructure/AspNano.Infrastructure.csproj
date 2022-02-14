@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
@@ -23,7 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AspNano.Core\AspNano.Entities.csproj" />
+    <ProjectReference Include="..\AspNano.Common\AspNano.Common.csproj" />
+    <ProjectReference Include="..\AspNano.Core\AspNano.Domain.csproj" />
+    <ProjectReference Include="..\AspNano.DTOs\AspNano.DTOs.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 
 </Project>

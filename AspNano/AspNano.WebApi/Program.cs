@@ -23,12 +23,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
+
 app.UseAuthorization();
-
+//app.UseMiddleware();
 app.MapControllers();
-
-//Calling the middleware
-//app.UseMiddleware<TenantMiddleware>();
-app.TenantMW();
 
 app.Run();

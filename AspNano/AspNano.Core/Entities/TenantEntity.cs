@@ -6,12 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AspNano.Core.Entities
+namespace AspNano.Domain.Entities
 {
     [Table("Tenant")]
-    public class TenantEntity: AuditableEntity
+    public class TenantEntity : BaseEntity
     {
+
         public string Key { get; set; }
+        public bool IsActive { get; set; }
 
         //Is Active bool
 

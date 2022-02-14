@@ -10,6 +10,6 @@ namespace AspNano.DTOs.AuthDTOs
     {
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Tenant { get; set; }
+        //public string Tenant { get; set; }
     }
 }

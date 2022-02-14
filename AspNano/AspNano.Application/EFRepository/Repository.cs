@@ -1,5 +1,5 @@
-﻿using AspNano.Core.Entities;
-using AspNano.Infrastructure;
+﻿using AspNano.Domain.Entities;
+using AspNano.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

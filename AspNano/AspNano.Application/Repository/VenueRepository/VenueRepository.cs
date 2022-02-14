@@ -2,8 +2,8 @@
 using AspNano.Common.HelperClasses;
 using AspNano.DTOs.ResponseDTOs;
 using AspNano.DTOs.VenueDTOs;
-using AspNano.Entities.Entities;
-using AspNano.Infrastructure;
+using AspNano.Domain.Entities;
+using AspNano.Infrastructure.Persistence;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -12,6 +12,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AspNano.Infrastructure.Multitenancy;
 
 namespace AspNano.Application.Repository.VenueRepository
 {
@@ -19,11 +20,13 @@ namespace AspNano.Application.Repository.VenueRepository
     {
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IMapper _mapper;
+        private readonly ITenantService _tenantService;
 
-        public VenueRepository(IHttpContextAccessor _httpContextAccessor, IMapper mapper, ApplicationDbContext dbContext) : base(dbContext)
+        public VenueRepository(IHttpContextAccessor _httpContextAccessor, IMapper mapper, ApplicationDbContext dbContext, ITenantService tenantService) : base(dbContext)
         {
             httpContextAccessor = _httpContextAccessor;
             _mapper = mapper;
+            _tenantService = tenantService;
         }
 
         public bool CheckExisting(string venueName)
@@ -39,8 +42,8 @@ namespace AspNano.Application.Repository.VenueRepository
             VenueEntity venue = new VenueEntity();
             venue = _mapper.Map(modal,venue);
             venue.Id = Guid.NewGuid();
-            venue.TenantId = Guid.Parse(TenantUserInfo.TenantID); //Getting tenant id from common helper class
-            venue.CreatedBy = Guid.Parse(TenantUserInfo.UserID);
+            venue.TenantId = Guid.Parse(_tenantService.GetCurrentTenant().Id); //Getting tenant id from common helper class
+            //venue.CreatedBy = Guid.Parse(TenantUserInfo.UserID);
             try
             {
                 await Add(venue);

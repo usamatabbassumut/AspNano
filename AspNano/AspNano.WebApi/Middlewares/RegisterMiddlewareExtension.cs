@@ -1,8 +1,8 @@
 ﻿namespace AspNano.WebApi.Middlewares
 {
-    public static class TenantMiddlewareExtension
+    public static class RegisterMiddlewareExtension
     {
-        public static IApplicationBuilder TenantMW(this IApplicationBuilder app)
+        public static IApplicationBuilder UseMiddleware(this IApplicationBuilder app)
         {
             app.UseMiddleware<TenantMiddleware>();
             return app;

@@ -1,5 +1,5 @@
-﻿using AspNano.Core.Entities;
-using AspNano.Entities.Entities;
+﻿
+using AspNano.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +9,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AspNano.Common.HelperClasses;
+using AspNano.Infrastructure.Multitenancy;
 
-namespace AspNano.Infrastructure
+namespace AspNano.Infrastructure.Persistence
 {
 
 
@@ -38,17 +40,31 @@ namespace AspNano.Infrastructure
     {
 
 
+        private readonly ITenantService _tenantService;
+        public string CurrentTenant { get; set; }
 
-
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        //Put this into the constructor -- , ITenantService tenantService
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ITenantService tenantService) : base(options)
         {
-
+            
+            _tenantService = tenantService;
+            CurrentTenant = _tenantService?.GetCurrentTenant()?.Id; //<-------- FIX THIS
+    
 
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ApplicationUser>().HasKey(m => m.Id);
             builder.Entity<IdentityRole>().HasKey(m => m.Id);
+            builder.Entity<VenueEntity>().HasQueryFilter(a => a.TenantId.ToString() == CurrentTenant); //if you remove this, you will get all the venues
+            builder.Entity<ApplicationUser>().HasQueryFilter(a => a.TenantId.ToString() == CurrentTenant); 
+
+            //<----- This is the important part we need to get working
+            //This query filter will be applied to all tables needing tenant separation
+
+
+            //builder.Entity<ApplicationUser>().HasQueryFilter(a => a.TenantId.ToString() == TenantUserInfo.TenantID); 
+
             base.OnModelCreating(builder);
             this.SeedTenants(builder);
             this.SeedUsers(builder);
@@ -58,12 +74,12 @@ namespace AspNano.Infrastructure
 
         private void SeedTenants(ModelBuilder builder)
         {
-                builder.Entity<TenantEntity>().HasData(
+           builder.Entity<TenantEntity>().HasData(
            new TenantEntity
            {        
                Id = Guid.Parse("297af0a9-060d-4ac7-b014-e421588150a0"),
                Key = "root",
-               CreatedBy = Guid.Parse("29faf0a9-060d-4ac7-b014-e421588150a0"),
+               IsActive = true,
            }
        );
         }
@@ -74,10 +90,10 @@ namespace AspNano.Infrastructure
             var user = new ApplicationUser
             {
                 Id = "297af0a9-060d-4ac7-b014-e421588150a0",
-                Email = "aspnano2022@info.com",
-                NormalizedEmail = "aspnano2022@info.com",
-                UserName = "aspnano",
-                NormalizedUserName = "OWNER",
+                Email = "admin@root.com",
+                NormalizedEmail = "admin@root.com",
+                UserName = "adminRoot",
+                NormalizedUserName = "ADMINROOT",
                 PhoneNumber = "+111111111111",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
@@ -88,7 +104,7 @@ namespace AspNano.Infrastructure
 
 
             var password = new PasswordHasher<ApplicationUser>();
-            var hashed = password.HashPassword(user, "Admin*123");
+            var hashed = password.HashPassword(user, "Password123!");
             user.PasswordHash = hashed;
 
             builder.Entity<ApplicationUser>().HasData(user);

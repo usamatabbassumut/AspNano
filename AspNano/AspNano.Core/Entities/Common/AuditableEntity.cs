@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AspNano.Core.Entities
+namespace AspNano.Domain.Entities
 {
 
     public abstract class AuditableEntity : BaseEntity

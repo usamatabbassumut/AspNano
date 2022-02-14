@@ -1,5 +1,5 @@
 ﻿using AspNano.DTOs.VenueDTOs;
-using AspNano.Entities.Entities;
+using AspNano.Domain.Entities;
 using FluentValidation;
 
 namespace AspNano.WebApi.Validators

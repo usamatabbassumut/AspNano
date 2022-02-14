@@ -1,7 +1,6 @@
-﻿using AspNano.Core.Entities;
-using AspNano.DTOs.TenantDTOs;
+﻿using AspNano.DTOs.TenantDTOs;
 using AspNano.DTOs.VenueDTOs;
-using AspNano.Entities.Entities;
+using AspNano.Domain.Entities;
 using AutoMapper;
 
 namespace AspNano.WebApi.MappingProfiles
