@@ -31,13 +31,13 @@ namespace AspNano.WebApi.Controllers
         [HttpPost("GetAllVenues")]
         public PagedResponse<List<VenueDTO>> GetAll(PaginationFilter filter)
         {
-            var list = _venueService.GetAllVenuesAsync(filter); 
+            var list = _venueService.GetAllVenuesAsync(filter);
 
             return list;
         }
 
 
-      
+
 
 
         [HttpPost]
@@ -53,7 +53,8 @@ namespace AspNano.WebApi.Controllers
                     return this.StatusCode((int)StatusCodeEnum.Ok, result);
 
                 }
-                else {
+                else
+                {
                     return BadRequest(validateResult.Errors);
                 }
             }
@@ -76,7 +77,8 @@ namespace AspNano.WebApi.Controllers
                     var result = await _venueService.UpdateVenueAsync(request, id);
                     return this.StatusCode((int)StatusCodeEnum.Ok, result);
                 }
-                else {
+                else
+                {
                     return BadRequest(validateResult.Errors);
                 }
             }
@@ -90,7 +92,7 @@ namespace AspNano.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ResponseDTO> DeleteAsync(Guid id)
         {
-          return await _venueService.DeleteVenueAsync(id);
+            return await _venueService.DeleteVenueAsync(id);
         }
 
 

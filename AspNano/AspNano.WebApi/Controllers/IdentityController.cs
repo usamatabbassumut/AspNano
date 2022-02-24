@@ -74,7 +74,7 @@ namespace AspNano.WebApi.Controllers
                     UserName = myLoginModel.Email,
                     Email = myLoginModel.Email,
                     EmailConfirmed = false,
-                    TenantId= Guid.Parse(TenantUserInfo.TenantID)
+                    //TenantId= Guid.Parse(TenantUserInfo.TenantID)
                 };
 
                 var result = await _userManager.CreateAsync(user, myLoginModel.Password);

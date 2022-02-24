@@ -50,9 +50,9 @@ namespace AspNano.WebApi.Controllers
         [AllowAnonymous]
         [HttpPost]
         //api/tokens
-        public async Task<IActionResult> Login([FromBody] TokenRequest request)
+        public async Task<IActionResult> Login([FromHeader]string tenant,[FromBody] TokenRequest request)
         {
-            var tenant = _tenantService.GetCurrentTenant();
+            //var tenant = _tenantService.GetCurrentTenant();
             //check tenant here
             //tenant key must be in header 
             var user = await _userManager.FindByEmailAsync(request.Email);
@@ -63,7 +63,9 @@ namespace AspNano.WebApi.Controllers
                 new Claim(ClaimTypes.Name,user.Email),
                 new Claim(ClaimTypes.NameIdentifier,user.Id),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
-                new Claim("tenant", tenant.Key),
+                //new Claim("tenant", user.TenantId),
+                new Claim("tenant", user.TenantId.ToString()),
+
                 };
                 foreach (var userRole in userRoles)
                 {

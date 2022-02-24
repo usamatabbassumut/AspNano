@@ -10,7 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AspNano.Infrastructure.Multitenancy
+namespace AspNano.WebApi.Multitenancy
 {
     public class TenantService : ITenantService
     {
@@ -18,27 +18,33 @@ namespace AspNano.Infrastructure.Multitenancy
         //private readonly ITenantRepository _tenantRepository;
         private TenantDTO _currentTenant;
         //private HttpContext _httpContext;
-        private readonly HttpContext _httpContext;
-        public TenantService(IHttpContextAccessor httpContextAccessor = null)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public TenantService(IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             //_tenantManagementDbContext = tenantManagementDbContext;
+            var userClaimsList = _httpContextAccessor.HttpContext?.User?.FindFirst("tenant")?.Value;
 
             //so everytime this instantiates, looks at the header or auth
-            _httpContext = httpContextAccessor?.HttpContext;
-            if (_httpContext != null)
-            {
-                _httpContext.Request.Headers.TryGetValue("tenant", out var tenantFromHeader);
+            //_httpContext = httpContextAccessor?.HttpContext;
+            //if (_httpContext?.User?.FindFirst("tenant")?.Value != null)
+            //{
 
-                //string tenantId = TenantResolver.Resolver(_httpContext);
-                if (!string.IsNullOrEmpty(tenantFromHeader))
-                {
-                    SetCurrentTenant(tenantFromHeader);
-                }
-                else
-                {
-                    throw new Exception("Invalid Tenant!");
-                }
-            }
+            //    _httpContext.Request.Headers.TryGetValue("tenant", out var tenantFromHeader);
+
+            //    var tenantFromToken = httpContextAccessor.HttpContext?.User?.FindFirst("tenant")?.Value; 
+
+
+            //    //string tenantId = TenantResolver.Resolver(_httpContext);
+            //    if (!string.IsNullOrEmpty(tenantFromToken))
+            //    {
+            //        SetCurrentTenant(tenantFromToken);
+            //    }
+            //    else
+            //    {
+            //        throw new Exception("Invalid Tenant!");
+            //    }
+            //}
 
         }
 

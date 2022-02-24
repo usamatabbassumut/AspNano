@@ -36,7 +36,7 @@ namespace AspNano.Application.Services.VenueService
         }
         public bool CheckExisting(string venueName)
         {
-            return _dbContext.Venue.Where(x => x.VenueName.ToLower() == venueName.ToLower()).Any();
+            return _dbContext.Venue.Where(x => x.Name.ToLower() == venueName.ToLower()).Any();
         }
 
         public async Task<Guid> SaveVenueAsync(CreateVenueRequest modal)
@@ -49,11 +49,6 @@ namespace AspNano.Application.Services.VenueService
             VenueEntity venue = new VenueEntity();
             venue = _mapper.Map(modal, venue);
             venue.Id = Guid.NewGuid();
-
-            //Will be handled on save changes in app db context
-            //venue.TenantId = Guid.Parse(_tenantService.GetCurrentTenant().Id); //Getting tenant id from common helper class
-            //         
-            //venue.CreatedBy = Guid.Parse(TenantUserInfo.UserID);
 
             try
             {
@@ -106,10 +101,10 @@ namespace AspNano.Application.Services.VenueService
                 .Select(x => new VenueDTO
             {
                 Id = x.Id,
-                VenueName = x.VenueName, 
-                VenueDescription = x.VenueDescription,
-                VenueType = NanoExtension.GetEnumDescription(x.VenueType), 
-                VenueTypeId = (int)x.VenueType
+                VenueName = x.Name, 
+                VenueDescription = x.Description,
+                VenueType = NanoExtension.GetEnumDescription(x.Type), 
+                VenueTypeId = (int)x.Type
 
             }).ToList();
             //var totalRecords =  _venueRepository.GetAllVenues().CountAsync();

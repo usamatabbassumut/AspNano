@@ -20,18 +20,18 @@ namespace AspNano.Application.Repository.VenueRepository
     {
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IMapper _mapper;
-        private readonly ITenantService _tenantService;
+        //private readonly ITenantService _tenantService;
 
-        public VenueRepository(IHttpContextAccessor _httpContextAccessor, IMapper mapper, ApplicationDbContext dbContext, ITenantService tenantService) : base(dbContext)
+        public VenueRepository(IHttpContextAccessor _httpContextAccessor, IMapper mapper, ApplicationDbContext dbContext) : base(dbContext)
         {
             httpContextAccessor = _httpContextAccessor;
             _mapper = mapper;
-            _tenantService = tenantService;
+            //_tenantService = tenantService;
         }
 
         public bool CheckExisting(string venueName)
         {
-            return GetWithCondition(x => x.VenueName.ToLower() == venueName.ToLower()).Any();
+            return GetWithCondition(x => x.Name.ToLower() == venueName.ToLower()).Any();
         }
 
         public async Task<Guid> SaveVenueAsync(CreateVenueRequest modal)
@@ -42,7 +42,7 @@ namespace AspNano.Application.Repository.VenueRepository
             VenueEntity venue = new VenueEntity();
             venue = _mapper.Map(modal,venue);
             venue.Id = Guid.NewGuid();
-            venue.TenantId = Guid.Parse(_tenantService.GetCurrentTenant().Id); //Getting tenant id from common helper class
+            //venue.TenantId = Guid.Parse(_tenantService.GetCurrentTenant().Id); //Getting tenant id from common helper class
             //venue.CreatedBy = Guid.Parse(TenantUserInfo.UserID);
             try
             {
@@ -66,7 +66,7 @@ namespace AspNano.Application.Repository.VenueRepository
             //Mapping the values
             VenueEntity venue = new VenueEntity();
             venue= _mapper.Map(modal,venue);
-            venue.TenantId = Guid.Parse(TenantUserInfo.TenantID);
+            //venue.TenantId = Guid.Parse(TenantUserInfo.TenantID);
             venue.Id = id; 
             venue.LastModifiedBy = Guid.Parse(TenantUserInfo.UserID);
             try

@@ -42,6 +42,16 @@ namespace AspNano.Infrastructure.Identity
             var claim = principal.FindFirst("tenant");
             return claim?.Value;
         }
+        public static string GetTenantId(this ClaimsPrincipal principal)
+        {
+            if (principal == null)
+            {
+                throw new ArgumentNullException(nameof(principal));
+            }
+
+            var claim = principal.FindFirst("tenantId");
+            return claim?.Value;
+        }
 
     }
 }

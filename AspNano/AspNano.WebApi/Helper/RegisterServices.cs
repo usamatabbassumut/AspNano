@@ -17,6 +17,34 @@ namespace AspNano.WebApi.Helper
 
         public static void ConfigureApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
+            #region [-- REGISTERING SERVICES --]
+            services.AddControllers();
+            services.AddEndpointsApiExplorer();
+            services.AddAutoMapper(typeof(ProfileMapper));
+            //services.AddScoped<ITenantService, TenantService>();
+            services.AddScoped<IVenueService, VenueService>();
+
+
+
+            #endregion
+
+            #region [-- REGISTERING REPOSITORIES --]
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IVenueRepository, VenueRepository>();
+            services.AddTransient<ITenantService, TenantService>();
+            //services.AddTransient<ITenantService, TenantService>();
+
+            //services.AddScoped<ITenantService, TenantService>();
+            #endregion
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddHttpContextAccessor();
+            #region [-- REGISTERING DB CONTEXT SERVICE --]
+            //this resolved the circular issue -- separate DBcontexts
+            //services.AddDbContext<TenantManagementDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            #endregion
 
             #region [-- SETTING UP IDENTITY CONFIGURATIONS --]
 
@@ -100,31 +128,8 @@ namespace AspNano.WebApi.Helper
             });
             #endregion
 
-            #region [-- REGISTERING SERVICES --]
-            services.AddControllers();
-            services.AddEndpointsApiExplorer();
-            services.AddAutoMapper(typeof(ProfileMapper));
-            services.AddScoped<ITenantService, TenantService>();
-            services.AddScoped<IVenueService, VenueService>();
+            
 
-
-
-            #endregion
-
-            #region [-- REGISTERING REPOSITORIES --]
-            services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
-            services.AddScoped<IVenueRepository, VenueRepository>();
-            services.AddScoped<ITenantService, TenantService>();
-            #endregion
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            #region [-- REGISTERING DB CONTEXT SERVICE --]
-            //this resolved the circular issue -- separate DBcontexts
-            //services.AddDbContext<TenantManagementDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-            #endregion
-            services.AddHttpContextAccessor();
 
 
         }

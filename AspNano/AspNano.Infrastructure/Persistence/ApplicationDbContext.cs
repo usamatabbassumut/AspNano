@@ -11,6 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using AspNano.Common.HelperClasses;
 using AspNano.Infrastructure.Multitenancy;
+using AspNano.Domain.Entities.Common;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace AspNano.Infrastructure.Persistence
 {
@@ -18,17 +21,18 @@ namespace AspNano.Infrastructure.Persistence
 
     //move seed and application user model to their own classes/locations
 
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser,IMustHaveTenant
     {
-        [ForeignKey("Tenant")]
-        public Guid TenantId { get; set; } //use the tenant key (string) instead of the GUID for simplicity in all tenant isolation columns
-        public virtual TenantEntity Tenant { get; set; } //FK not necessary for tenants
+        //[ForeignKey("Tenant")]
+        //public Guid TenantId { get; set; } //use the tenant key (string) instead of the GUID for simplicity in all tenant isolation columns
+        //public virtual TenantEntity Tenant { get; set; } //FK not necessary for tenants
 
         //-- Create these fields for user
 
         //public string FirstName { get; set; }  
         //public string LastName { get; set; }
         //public bool IsActive { get; set; }
+        public string TenantId { get; set; }
     }
 
     public class ApplicationRoles : IdentityRole
@@ -38,26 +42,23 @@ namespace AspNano.Infrastructure.Persistence
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-
-
-        private readonly ITenantService _tenantService;
         public string CurrentTenant { get; set; }
-
         //Put this into the constructor -- , ITenantService tenantService
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-            
-            _tenantService = _tenantService;
-            CurrentTenant = _tenantService?.GetCurrentTenant()?.Id; //<-------- FIX THIS
-    
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly ITenantService _tenantService;
 
+        public ApplicationDbContext(ITenantService tenantService,DbContextOptions<ApplicationDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
+        {
+            _contextAccessor= httpContextAccessor;
+            _tenantService = tenantService;
+            CurrentTenant = _tenantService?.GetCurrentTenant()?.Id; //<-------- FIX THIS
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ApplicationUser>().HasKey(m => m.Id);
             builder.Entity<IdentityRole>().HasKey(m => m.Id);
-            builder.Entity<VenueEntity>().HasQueryFilter(a => a.TenantId.ToString() == CurrentTenant); //if you remove this, you will get all the venues
-            builder.Entity<ApplicationUser>().HasQueryFilter(a => a.TenantId.ToString() == CurrentTenant); 
+            builder.Entity<VenueEntity>().HasQueryFilter(a => a.TenantId == CurrentTenant); //if you remove this, you will get all the venues
+            //builder.Entity<ApplicationUser>().HasQueryFilter(a => a.TenantId == CurrentTenant); 
 
             //<----- This is the important part we need to get working
             //This query filter will be applied to all tables needing tenant separation
@@ -70,6 +71,22 @@ namespace AspNano.Infrastructure.Persistence
             this.SeedUsers(builder);
             this.SeedRoles(builder);
             this.SeedUserRoles(builder);
+        }
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+
+            foreach (var entry in ChangeTracker.Entries<IMustHaveTenant>().ToList())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                    case EntityState.Modified:
+                        entry.Entity.TenantId = CurrentTenant;
+                        break;
+                }
+            }
+            var result = await base.SaveChangesAsync(cancellationToken);
+            return result;
         }
 
         private void SeedTenants(ModelBuilder builder)
@@ -98,7 +115,7 @@ namespace AspNano.Infrastructure.Persistence
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString("D"),
-                TenantId= Guid.Parse("297af0a9-060d-4ac7-b014-e421588150a0"),
+                TenantId= "297af0a9-060d-4ac7-b014-e421588150a0",
 
             };
 
